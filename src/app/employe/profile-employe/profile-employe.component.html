@@ -1,0 +1,81 @@
+<div class="vh-100 d-flex justify-content-start align-items-stretch">
+    <app-navbar></app-navbar>
+
+    <div class="bg-light flex-fill p-5">
+        <div id="form-card">    
+            <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+                <div class="form-group"  *ngIf='this.errorMessage != ""'>
+                    <div class="form-control alert alert-danger">
+                        <div>{{this.errorMessage}}</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstname">Prenom</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="firstname"
+                        aria-describedby="firstname"
+                        formControlName="firstname"
+                        [ngClass]="{ 'is-invalid': submitted && f['firstname'].errors }"
+                    />
+                    <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
+                        <div *ngIf="f['firstname'].errors['required']">Prenom requis</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Nom</label>
+                    <input 
+                        type="text"
+                        class="form-control"
+                        id="lastname"
+                        aria-describedby="lastname"
+                        formControlName="lastname"
+                        [ngClass]="{ 'is-invalid': submitted && f['lastname'].errors }"
+                    />
+                    <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
+                        <div *ngIf="f['lastname'].errors['required']">Nom requis</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Addresse Email</label>
+                    <input 
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        aria-describedby="email"
+                        formControlName="email"
+                        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                    />
+                    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                        <div *ngIf="f['email'].errors['required']">Email requis</div>
+                        <div *ngIf="f['email'].errors['email']">Email invalide</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthday">Date de naissance</label>
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="birthday"
+                        aria-describedby="birthday"
+                        formControlName="birthday"
+                        [ngClass]="{ 'is-invalid': submitted && f['birthday'].errors }"
+                    />
+                    <div *ngIf="submitted && f['birthday'].errors" class="invalid-feedback">
+                        <div *ngIf="f['birthday'].errors['required']">Date de naissance requis</div>
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <button 
+                        type="submit" 
+                        class="btn w-100"
+                        [ngClass]="{ 'btn-primary': !submitting, 'btn-success': submitting}"
+                    >
+                    {{ this.submit_btn_text }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

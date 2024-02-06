@@ -1,0 +1,25 @@
+<div class="vh-100 d-flex justify-content-start align-items-stretch">
+    <app-navbar></app-navbar>
+
+    <div class="bg-light flex-fill p-5">
+        <div class="bg-white border border-light">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-cal-tab" data-bs-toggle="tab" data-bs-target="#nav-cal" type="button" role="tab" aria-controls="nav-cal" aria-selected="true">Calendrier de rendez-vous</button>
+                    <button class="nav-link" id="nav-list-tab" data-bs-toggle="tab" data-bs-target="#nav-list" type="button" role="tab" aria-controls="nav-list" aria-selected="false">Liste de rendez-vous</button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-cal" role="tabpanel" aria-labelledby="nav-cal-tab">
+                    <full-calendar [options]="calendarOptions"></full-calendar>
+                </div>
+                <div class="tab-pane fade" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
+                    <li *ngFor="let rv of rendezVous">
+                        <ul>{{ rv.title }}</ul>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

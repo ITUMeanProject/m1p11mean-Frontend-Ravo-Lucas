@@ -1,0 +1,10 @@
+.card{
+    background-color: white;
+    padding: 1.5% 10%;
+}
+
+#nav-cal{
+    border: 1px solid rgba(0,0,0,.125);
+    margin-top: 1.5%;
+    padding: 1%;
+}

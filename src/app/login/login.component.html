@@ -7,21 +7,25 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Se connecter</h2>
 
-                            <form>
-
+                            <form  [formGroup]="loginForm" (ngSubmit)="connect()">
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
-                                    <label class="form-label" for="form3Example1cg">Votre login ou email</label>
+                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" formControlName="userName"/>
+                                    <label class="form-label" for="form3Example1cg"><strong>Votre login ou email</strong></label>
+                                    <div class="error-message" *ngIf="submitted && getForm['userName'].errors?.['required']">
+                                        Veuillez ajouter votre login
+                                    </div>
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example3cg" class="form-control form-control-lg" />
-                                    <label class="form-label" for="form3Example3cg">Mot de passe</label>
+                                    <input type="password" id="form3Example3cg" class="form-control form-control-lg" formControlName="password"/>
+                                    <label class="form-label" for="form3Example3cg"><strong>Mot de passe</strong></label>
+                                    <div class="error-message" *ngIf="submitted && getForm['password'].errors?.['required']">
+                                        Saisir votre mot de passe
+                                    </div>
                                 </div>
-
 
                                 <div class="d-flex justify-content-center">
-                                    <button type="button"
+                                    <button type="submit"
                                         class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Se
                                         connecter</button>
                                 </div>
@@ -29,9 +33,7 @@
                                 <p class="text-center text-muted mt-5 mb-0">Voulez-vous créer un compte?
                                     <a [routerLink]="['/inscription']" class="fw-bold text-body"><u>cliquer ici</u></a>
                                 </p>
-
                             </form>
-
                         </div>
                     </div>
                 </div>

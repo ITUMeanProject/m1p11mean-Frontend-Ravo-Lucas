@@ -9,6 +9,6 @@ export class RendezVousService {
     constructor(private http: HttpClient) {}
 
     fetchRdv(id?: string){
-        return this.http.get(`${Envs.RDV_API_BASEURL}/rendezVous`);
+        return this.http.get(`${Envs.API_BASEURL}rendezvousAPI/rendezVous`);
     }
 }

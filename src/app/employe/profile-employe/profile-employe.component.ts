@@ -106,13 +106,12 @@ export class ProfileEmployeComponent implements OnInit {
             this.employeService.updateEmploye(this.id, formData)
             .subscribe(
                 response => {
-                    this.submittedProfile = true;
                     this.profileSubmitMessage = "Profile modifié";
                     this.getEmploye();
                 },
                 error => {
                     console.log(error);
-                    this.profileFormErrorMessage = error.error.message;
+                    this.profileFormErrorMessage = error.error.message || "Erreur de connexion";
                 },
                 () => {
                     this.resetProfileForm()
@@ -122,17 +121,21 @@ export class ProfileEmployeComponent implements OnInit {
 	}
 
     onHoraireSubmit(event: any): void {
+        this.horaireSubmitBtnText = "";
+        this.submittedProfile = true;
+        this.submittingHoraire = true;
         this.horaireForm.value.employe = this.id;
+
         this.horaireDeTravailService.createHoraire(this.horaireForm.value)
         .subscribe(
             response => {
-                console.log(response);
+                this.submittedHoraire = true;
                 this.horaireSubmitMessage = "Horaire créée";
                 this.getHoraire();
             },
             error => {
                 console.log(error);
-                this.horaireFormErrorMessage = error.error.message;
+                this.horaireFormErrorMessage = error.error.message || "Erreur de connexion";
             },
         );
 	}

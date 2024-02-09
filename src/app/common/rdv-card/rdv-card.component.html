@@ -1,0 +1,43 @@
+<div class="card my-2 py-2 px-4 rdv-card" *ngIf="rdv">
+    <p class="fw-bold">
+        <span class="text-muted ">{{ this.dateDiff(rdv.date) }}</span>
+        <br>
+        <span class="text-black"><i class="bi bi-calendar"></i> Le {{rdv.date | date: 'd MMM y à h:mm a'}}</span>
+    </p>
+
+    <table class="my-3">
+        <tr>
+            <td><span class="text-muted fw-bold">Client </span> </td>
+            <td>
+                <span *ngIf="rdv.client.sexe == 'Homme'">Mr </span>
+                <span *ngIf="rdv.client.sexe == 'Femme'">Mme </span>
+                {{rdv.client.nom}} {{rdv.client.prenom}}
+            </td>
+        </tr>
+        <tr>
+            <td><span class="text-muted fw-bold">Employe </span></td>
+            <td>
+                {{rdv.employe.nom}} {{rdv.employe.prenom}}
+            </td>
+        </tr>
+    </table>
+
+    <!-- <p>
+        <span>
+            <span class="text-muted fw-bold">Client </span> 
+            <span *ngIf="rdv.client.sexe == 'Homme'">Mr </span>
+            <span *ngIf="rdv.client.sexe == 'Femme'">Mme </span>
+            {{rdv.client.nom}} {{rdv.client.prenom}}
+        </span>
+        <br>
+        <span>
+            <span class="text-muted fw-bold">Employe </span>
+            {{rdv.employe.nom}} {{rdv.employe.prenom}}
+        </span>
+    </p> -->
+
+    <div *ngFor="let sv of rdv.services" class="d-flex">
+        <button class="fw-bold btn btn-success">{{sv.nom}}</button>
+    </div>
+
+</div>

@@ -3,6 +3,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid'
 import frLocale from '@fullcalendar/core/locales/fr';
+import { RendezVousService } from 'src/app/services/rendezvous/rendezVous.service';
 
 @Component({
   selector: 'app-affichage-rendezvous',
@@ -12,6 +13,7 @@ import frLocale from '@fullcalendar/core/locales/fr';
 export class AffichageRendezvousComponent implements OnInit {
     
     rendezVous: any = [];
+    rendezVousCalendrier: any = [];
     calendarOptions: CalendarOptions = {
         locale: frLocale,
         initialView: 'dayGridMonth',
@@ -21,17 +23,46 @@ export class AffichageRendezvousComponent implements OnInit {
             center: 'title',
             right: 'today dayGridMonth,timeGridWeek'
         },
-        themeSystem: 'bootstrap5'
+        themeSystem: 'bootstrap5',
+        eventClick: this.handleEventClick.bind(this),
     };
 
-    constructor() { }
+    constructor(private rendezVousService: RendezVousService) { }
 
+    showModal = "";
+    selectedRdv: any;
+    handleEventClick(arg: any) {
+        this.showModal = "show";
+        this.selectedRdv = arg.event.extendedProps.rdv_data;
+        console.log(arg.event.extendedProps.rdv_data);
+    }
+    closeModal(){
+        this.showModal = "";
+    }
+    
     ngOnInit(): void {
-        this.rendezVous = [
-            { title: 'event 1', date: '2024-02-01' },
-            { title: 'event 2', date: '2024-02-02' }
-        ];
-        this.calendarOptions.events = this.rendezVous;
+
+        this.rendezVousService.fetchRdv()
+        .subscribe({
+            next: (response) => {
+                var data = JSON.parse(JSON.stringify(response));
+                this.rendezVous = data;
+                data.forEach( (rdv : any) => {
+                    this.rendezVousCalendrier.push(
+                        {
+                            title: rdv.client.nom,
+                            date: rdv.date,
+                            rdv_data: rdv
+                        }
+                    );
+                });
+                this.calendarOptions.events = this.rendezVousCalendrier;
+            },
+            error: (error) => {
+                
+            }
+        });
+
     }
 
 }

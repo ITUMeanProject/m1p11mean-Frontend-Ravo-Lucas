@@ -8,3 +8,7 @@
     margin-top: 1.5%;
     padding: 1%;
 }
+
+.show{
+    display: block;
+}

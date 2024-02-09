@@ -6,6 +6,7 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { PageNoutFoundComponent } from './page-nout-found/page-nout-found.component';
 import { AffichageRendezvousComponent } from './employe/affichage-rendezvous/affichage-rendezvous.component';
 import { ProfileEmployeComponent } from './employe/profile-employe/profile-employe.component';
+import { HomeComponent } from './home/home.component';
 
 const routes : Routes = [
     {path : '', component:LoginComponent},
@@ -14,6 +15,7 @@ const routes : Routes = [
     {path : 'inscription', component:InscriptionComponent},
     {path : 'employe/profile', component:ProfileEmployeComponent},
     {path : 'employe/rendezvous', component:AffichageRendezvousComponent},
+    {path : 'home', component: HomeComponent},
     {path : '**', component:PageNoutFoundComponent}
   ];
 

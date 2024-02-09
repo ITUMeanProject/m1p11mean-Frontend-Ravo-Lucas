@@ -12,6 +12,7 @@ import { ProfileEmployeComponent } from './employe/profile-employe/profile-emplo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
 import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
         AffichageRendezvousComponent,
         ProfileEmployeComponent,
         NavbarComponent,
+        HomeComponent,
         RdvCardComponent
     ],
     imports: [

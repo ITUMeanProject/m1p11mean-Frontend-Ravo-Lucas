@@ -11,11 +11,12 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProfileEmployeComponent } from './employe/profile-employe/profile-employe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './common/navbar/navbar.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
 import { SuiviDesTachesComponent } from './employe/suivi-des-taches/suivi-des-taches.component';
 import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-details/suivi-des-taches-details.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-detai
         FullCalendarModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        DragDropModule
     ],
     providers: [],
     bootstrap: [AppComponent]

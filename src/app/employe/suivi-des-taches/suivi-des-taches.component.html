@@ -25,10 +25,10 @@
                                 <span class="text-muted">Montant commission total:   </span>
                                 <span *ngIf="resumeJournee" class="text-black">
                                     <span *ngFor="let r of resumeJournee">
-                                        {{ r.montantCommision | currency: 'MGA' }}
+                                        {{ r.montantCommision | number}} Ariary
                                     </span>
                                     <span *ngIf="resumeJournee.length == 0" class="text-black">
-                                        {{ "0.00" | currency: 'MGA' }}
+                                        {{ "0.00" | number }} Ariary
                                     </span>
                                 </span>
                             </span>

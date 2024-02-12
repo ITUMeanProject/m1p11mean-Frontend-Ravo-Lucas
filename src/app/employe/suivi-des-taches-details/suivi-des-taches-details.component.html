@@ -1,1 +1,67 @@
-<p>suivi-des-taches-details works!</p>
+<div class="vh-100 d-flex justify-content-start align-items-stretch">
+    <app-navbar></app-navbar>
+
+    <div class="bg-light flex-fill p-5">
+        
+        <div class="px-2 card my-2 py-2 px-4">
+            <div class="d-flex justify-content-between">
+                <p class="fw-bold">
+                    <span class="text-black"><i class="bi bi-calendar"></i> Le {{rendezVousData.date | date: 'd MMM y à h:mm a'}}</span>
+                </p>
+            </div>
+        
+            <table class="my-3">
+                <tr>
+                    <td><span class="text-muted fw-bold">Client </span> </td>
+                    <td *ngIf="rendezVousData.client">
+                        <span *ngIf="rendezVousData.client.sexe == 'Homme'">Mr </span>
+                        <span *ngIf="rendezVousData.client.sexe == 'Femme'">Mme </span>
+                        {{rendezVousData.client.nom}} {{rendezVousData.client.prenom}}
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-muted fw-bold">Employe </span></td>
+                    <td *ngIf="rendezVousData.employe">
+                        {{rendezVousData.employe.nom}} {{rendezVousData.employe.prenom}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+            
+        <div class="px-2 card my-2 py-2 px-4">
+            <span *ngIf="updateMsg != '' " class="alert alert-sm alert-success my-2">{{updateMsg}}</span>
+            <span *ngIf="updateError != '' " class="alert alert-sm alert-danger my-2">{{updateError}}</span>
+            <button (click)="updateRdv()" class="btn btn-sm btn-primary my-2">Save</button>
+            <div cdkDropListGroup class="d-flex justify-content-between">
+                <div class="example-container">
+                    <h2>A faire</h2>
+                
+                    <div
+                    cdkDropList
+                    [cdkDropListData]="tacheToDo"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                        <div *ngFor="let item of tacheToDo" class="example-box" cdkDrag>
+                            {{item.nom}}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-container">
+                    <h2>Fait</h2>
+                
+                    <div
+                    cdkDropList
+                    [cdkDropListData]="tacheDone"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                        <div *ngFor="let item of tacheDone" class="example-box" cdkDrag>
+                            {{item.nom}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

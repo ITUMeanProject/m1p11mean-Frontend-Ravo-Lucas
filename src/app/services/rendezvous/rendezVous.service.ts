@@ -10,7 +10,7 @@ export class RendezVousService {
 
     fetchRdv(id?: string){
         var url = (!id) ? `${Envs.API_BASEURL}rendezvousAPI/rendezVous` : `${Envs.API_BASEURL}rendezvousAPI/rendezVous/${id}`
-        return this.http.get(url);
+        return this.http.get(url, { observe: 'response' });
     }
 
     findRdv(filter){
@@ -31,5 +31,9 @@ export class RendezVousService {
         if(filter.datefin != '' && filter.datefin != undefined) url += `&datefin=${filter.datefin}`;
 
         return this.http.get(url);
+    }
+
+    updateRdv(id: string, formData: any) {
+        return this.http.put(`${Envs.API_BASEURL}rendezvousAPI/rendezvous/${id}`, formData, { observe: 'response' });
     }
 }

@@ -23,8 +23,6 @@ export class RdvCardComponent implements OnInit {
 
         if (isNaN(daydiff)) return '';
         
-        console.log(daydiff);
-        
         return daydiff == 0 && "Aujourdh'ui" ||
             daydiff == -1 && `Hier` ||
             daydiff < -1 && `il y a ${daydiff*-1} jour(s)` ||

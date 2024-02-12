@@ -52,7 +52,7 @@ export class AffichageRendezvousComponent implements OnInit {
         this.rendezVousService.fetchRdv()
         .subscribe({
             next: (response) => {
-                var data = JSON.parse(JSON.stringify(response));
+                var data = JSON.parse(JSON.stringify(response.body));
                 this.rendezVous = data;
                 data.forEach( (rdv : any) => {
                     this.rendezVousCalendrier.push(

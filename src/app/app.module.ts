@@ -14,6 +14,8 @@ import { NavbarComponent } from './common/navbar/navbar.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
+import { SuiviDesTachesComponent } from './employe/suivi-des-taches/suivi-des-taches.component';
+import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-details/suivi-des-taches-details.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +27,9 @@ import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
         ProfileEmployeComponent,
         NavbarComponent,
         HomeComponent,
-        RdvCardComponent
+        RdvCardComponent,
+        SuiviDesTachesComponent,
+        SuiviDesTachesDetailsComponent
     ],
     imports: [
         BrowserModule,

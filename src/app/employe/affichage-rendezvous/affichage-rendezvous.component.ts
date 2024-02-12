@@ -12,6 +12,13 @@ import { RendezVousService } from 'src/app/services/rendezvous/rendezVous.servic
 })
 export class AffichageRendezvousComponent implements OnInit {
     
+    rendezVousSearch = {
+        nomClient: '',
+        prenomClient: '',
+        _date: '',
+        datedebut: '',
+        datefin: '',
+    };
     rendezVous: any = [];
     rendezVousCalendrier: any = [];
     calendarOptions: CalendarOptions = {
@@ -59,10 +66,43 @@ export class AffichageRendezvousComponent implements OnInit {
                 this.calendarOptions.events = this.rendezVousCalendrier;
             },
             error: (error) => {
-                
+                console.log(error)
             }
         });
 
+    }
+
+    resetFilter(){
+        this.rendezVousSearch = {
+            nomClient: '',
+            prenomClient: '',
+            _date: '',
+            datedebut: '',
+            datefin: '',
+        };
+    }
+
+    findRdv(){
+        this.rendezVousService.findRdv(this.rendezVousSearch)
+        .subscribe({
+            next: (response) => {
+                var data = JSON.parse(JSON.stringify(response));
+                this.rendezVous = data;
+                data.forEach( (rdv : any) => {
+                    this.rendezVousCalendrier.push(
+                        {
+                            title: rdv.client.nom,
+                            date: rdv.date,
+                            rdv_data: rdv
+                        }
+                    );
+                });
+                this.calendarOptions.events = this.rendezVousCalendrier;
+            },
+            error: (error) => {
+                console.log(error)
+            }
+        });
     }
 
 }

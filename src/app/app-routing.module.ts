@@ -7,6 +7,8 @@ import { PageNoutFoundComponent } from './page-nout-found/page-nout-found.compon
 import { AffichageRendezvousComponent } from './employe/affichage-rendezvous/affichage-rendezvous.component';
 import { ProfileEmployeComponent } from './employe/profile-employe/profile-employe.component';
 import { HomeComponent } from './home/home.component';
+import { SuiviDesTachesComponent } from './employe/suivi-des-taches/suivi-des-taches.component';
+import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-details/suivi-des-taches-details.component';
 
 const routes : Routes = [
     {path : '', component:LoginComponent},
@@ -15,6 +17,8 @@ const routes : Routes = [
     {path : 'inscription', component:InscriptionComponent},
     {path : 'employe/profile', component:ProfileEmployeComponent},
     {path : 'employe/rendezvous', component:AffichageRendezvousComponent},
+    {path : 'employe/suividetache', component:SuiviDesTachesComponent},
+    {path : 'employe/suividetachedetails', component:SuiviDesTachesDetailsComponent},
     {path : 'home', component: HomeComponent},
     {path : '**', component:PageNoutFoundComponent}
   ];

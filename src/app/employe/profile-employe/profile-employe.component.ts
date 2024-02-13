@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeService } from 'src/app/services/employe/employe.service';
 import { HoraireDeTravailService } from 'src/app/services/employe/horaire-de-travail.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,7 @@ import { HoraireDeTravailService } from 'src/app/services/employe/horaire-de-tra
 export class ProfileEmployeComponent implements OnInit {
     employe: any;
     horaire: any;
-    id = "65c4e5eab08f1c68907534d7";
+    user = {};
 
     profileForm: FormGroup = new FormGroup({
 		pdp: new FormControl(''),
@@ -41,10 +42,10 @@ export class ProfileEmployeComponent implements OnInit {
 		return this.profileForm.controls;
 	}
     
-    constructor(private formBuilder: FormBuilder, private employeService: EmployeService, private horaireDeTravailService: HoraireDeTravailService){}
+    constructor(private formBuilder: FormBuilder, private employeService: EmployeService, private horaireDeTravailService: HoraireDeTravailService, private userService: UserService){}
 
     getEmploye(){
-        this.employeService.fetchEmp(this.id)
+        this.employeService.fetchEmp(this.user["userId"])
         .subscribe( (response) => {
             this.employe = JSON.parse(JSON.stringify(response));
             console.log(this.employe);
@@ -62,7 +63,7 @@ export class ProfileEmployeComponent implements OnInit {
 
     getHoraire(){
         var isoDate = new Date().toISOString().split("T")[0];
-        this.horaireDeTravailService.fetchAllHoraireByDate(this.id, isoDate)
+        this.horaireDeTravailService.fetchAllHoraireByDate(this.user["userId"], isoDate)
         .subscribe( (response) => {
             this.horaire = JSON.parse(JSON.stringify(response));
             console.log(this.horaire);
@@ -70,6 +71,7 @@ export class ProfileEmployeComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.user = this.userService.getUser();
         this.getEmploye();
         this.getHoraire();
 
@@ -103,7 +105,7 @@ export class ProfileEmployeComponent implements OnInit {
 
             Array.from(event.target[0].files).forEach( (file) => formData.append("photoDeProfil", file));
 
-            this.employeService.updateEmploye(this.id, formData)
+            this.employeService.updateEmploye(this.user["userId"], formData)
             .subscribe(
                 response => {
                     this.profileSubmitMessage = "Profile modifié";
@@ -119,12 +121,16 @@ export class ProfileEmployeComponent implements OnInit {
             );
         }
 	}
-
+    resetHoraireForm(){
+        this.horaireSubmitBtnText = "Ajouter un nouvel Horaire";
+        this.submittedHoraire = false;
+        this.submittingHoraire = false;
+    }
     onHoraireSubmit(event: any): void {
         this.horaireSubmitBtnText = "";
-        this.submittedProfile = true;
+        this.submittedHoraire = true;
         this.submittingHoraire = true;
-        this.horaireForm.value.employe = this.id;
+        this.horaireForm.value.employe = this.user["userId"];
 
         this.horaireDeTravailService.createHoraire(this.horaireForm.value)
         .subscribe(
@@ -137,6 +143,9 @@ export class ProfileEmployeComponent implements OnInit {
                 console.log(error);
                 this.horaireFormErrorMessage = error.error.message || "Erreur de connexion";
             },
+            () => {
+                this.resetHoraireForm()
+            }
         );
 	}
 

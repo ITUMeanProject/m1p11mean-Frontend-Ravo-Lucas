@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid'
 import frLocale from '@fullcalendar/core/locales/fr';
 import { RendezVousService } from 'src/app/services/rendezvous/rendezVous.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-affichage-rendezvous',
@@ -12,6 +13,7 @@ import { RendezVousService } from 'src/app/services/rendezvous/rendezVous.servic
 })
 export class AffichageRendezvousComponent implements OnInit {
     
+    user: any = {};
     rendezVousSearch = {
         nomClient: '',
         prenomClient: '',
@@ -34,7 +36,7 @@ export class AffichageRendezvousComponent implements OnInit {
         eventClick: this.handleEventClick.bind(this),
     };
 
-    constructor(private rendezVousService: RendezVousService) { }
+    constructor(private rendezVousService: RendezVousService, private userService: UserService) { }
 
     showModal = "";
     selectedRdv: any;
@@ -48,11 +50,13 @@ export class AffichageRendezvousComponent implements OnInit {
     }
     
     ngOnInit(): void {
-
-        this.rendezVousService.fetchRdv()
+        this.user = this.userService.getUser();
+        this.rendezVousSearch["empId"] = this.user["userId"];
+        
+        this.rendezVousService.findRdv(this.rendezVousSearch)
         .subscribe({
             next: (response) => {
-                var data = JSON.parse(JSON.stringify(response.body));
+                var data = JSON.parse(JSON.stringify(response));
                 this.rendezVous = data;
                 data.forEach( (rdv : any) => {
                     this.rendezVousCalendrier.push(
@@ -83,6 +87,7 @@ export class AffichageRendezvousComponent implements OnInit {
     }
 
     findRdv(){
+        this.rendezVousSearch["empId"] = this.user["userId"];
         this.rendezVousService.findRdv(this.rendezVousSearch)
         .subscribe({
             next: (response) => {

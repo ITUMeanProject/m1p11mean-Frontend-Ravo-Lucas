@@ -9,16 +9,25 @@ import { ProfileEmployeComponent } from './employe/profile-employe/profile-emplo
 import { HomeComponent } from './home/home.component';
 import { SuiviDesTachesComponent } from './employe/suivi-des-taches/suivi-des-taches.component';
 import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-details/suivi-des-taches-details.component';
+import { LoginEmployeComponent } from './employe/login-employe/login-employe.component';
+import { EmpAuthGuard } from './guard/emp-auth.guard';
 
 const routes : Routes = [
     {path : '', component:LoginComponent},
 
     {path : 'login', component:LoginComponent},
     {path : 'inscription', component:InscriptionComponent},
-    {path : 'employe/profile', component:ProfileEmployeComponent},
-    {path : 'employe/rendezvous', component:AffichageRendezvousComponent},
-    {path : 'employe/suividetache', component:SuiviDesTachesComponent},
-    {path : 'employe/suividetachedetails', component:SuiviDesTachesDetailsComponent},
+    {
+        path : 'employe',
+        canActivate: [EmpAuthGuard],
+        children: [
+            {path : 'profile', component:ProfileEmployeComponent},
+            {path : 'rendezvous', component:AffichageRendezvousComponent},
+            {path : 'suividetache', component:SuiviDesTachesComponent},
+            {path : 'suividetachedetails', component:SuiviDesTachesDetailsComponent}
+        ]
+    },
+    {path : 'employe/login', component:LoginEmployeComponent},
     {path : 'home', component: HomeComponent},
     {path : '**', component:PageNoutFoundComponent}
   ];

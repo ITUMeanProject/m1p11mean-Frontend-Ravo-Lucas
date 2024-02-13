@@ -11,12 +11,14 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProfileEmployeComponent } from './employe/profile-employe/profile-employe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './common/navbar/navbar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
 import { SuiviDesTachesComponent } from './employe/suivi-des-taches/suivi-des-taches.component';
 import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-details/suivi-des-taches-details.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LoginEmployeComponent } from './employe/login-employe/login-employe.component';
+import { HeaderInterceptor } from './interceptor/header.interceptor';
 
 @NgModule({
     declarations: [
@@ -30,7 +32,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         HomeComponent,
         RdvCardComponent,
         SuiviDesTachesComponent,
-        SuiviDesTachesDetailsComponent
+        SuiviDesTachesDetailsComponent,
+        LoginEmployeComponent
     ],
     imports: [
         BrowserModule,
@@ -41,7 +44,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         HttpClientModule,
         DragDropModule
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

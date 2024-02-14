@@ -11,6 +11,10 @@ import { SuiviDesTachesComponent } from './employe/suivi-des-taches/suivi-des-ta
 import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-details/suivi-des-taches-details.component';
 import { LoginEmployeComponent } from './employe/login-employe/login-employe.component';
 import { EmpAuthGuard } from './guard/emp-auth.guard';
+import { ManagerLoginComponent } from './manager/manager-login/manager-login.component';
+import { ManagerAuthGuard } from './guard/manager-auth.guard';
+import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employe/manager-gestion-employe.component';
+import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
 
 const routes : Routes = [
     {path : '', component:LoginComponent},
@@ -27,6 +31,15 @@ const routes : Routes = [
             {path : 'suividetachedetails', component:SuiviDesTachesDetailsComponent}
         ]
     },
+    {
+        path : 'manager',
+        canActivate: [ManagerAuthGuard],
+        children: [
+            {path : 'gestionemploye', component:ManagerGestionEmployeComponent},
+            {path : 'gestionservices', component:ManagerGestionServiceComponent},
+        ]
+    },
+    {path : 'manager/login', component:ManagerLoginComponent},
     {path : 'employe/login', component:LoginEmployeComponent},
     {path : 'home', component: HomeComponent},
     {path : '**', component:PageNoutFoundComponent}

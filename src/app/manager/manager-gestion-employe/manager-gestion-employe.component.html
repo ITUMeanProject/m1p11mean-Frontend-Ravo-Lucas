@@ -1,0 +1,315 @@
+<div class="vh-100 d-flex justify-content-start align-items-stretch">
+    <app-navbar></app-navbar>
+
+    <div class="bg-light flex-fill overflow-auto">
+        <div class="bg-white border border-light py-5">
+            <div class="px-2">
+                <h1>Employé</h1>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutEmp" (click)="resetEmpForm()">
+                        Ajouter nouvel employé
+                </button>
+                <div class="py-2">
+                    <form (ngSubmit)="findEmp()">
+                        <div class="row">
+                            <div class="col">
+                                <input class="col-2 form-control form-control-sm" [(ngModel)]="empSearch.nomEmp" name="nomEmp" type="text" placeholder="Nom client" aria-label="Nom client">
+                            </div>
+                            <div class="col">
+                                <input class="col-2 form-control form-control-sm" [(ngModel)]="empSearch.prenomEmp" name="prenomEmp" type="text" placeholder="Prenom client" aria-label="Nom client">
+                            </div>
+                            <div class="col">
+                                <select class="col-2 form-control form-control-sm" [(ngModel)]="empSearch.sexe" name="sexe" aria-label="Date">
+                                    <option value="" selected>Tous</option>
+                                    <option value="Homme">Homme</option>
+                                    <option value="Femme">Femme</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="col-2 form-control form-control-sm" [(ngModel)]="empSearch.dateDeNaissance" name="dateDeNaissance" type="date" placeholder="Date" aria-label="Date">
+                            </div>
+                            <div class="col">
+                                <input class="col-2 form-control btn-sm btn btn-primary" type="submit" value="Rechercher" aria-label="Rechercher">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Sexe</th>
+                        <th>Date de naissance</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let emp of employes">
+                        <td>
+                            {{emp.nom}} {{emp.prenom}}
+                        </td>
+                        <td>{{emp.sexe}}</td>
+                        <td>{{emp.dateDeNaissance | date: 'd MMM y'}}</td>
+                        <td class="d-flex">
+                            <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#editEmp" (click)="selectEmp(emp)">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteEmp" (click)="selectEmp(emp)">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="px-2">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-group">
+        <div class="modal fade" id="ajoutEmp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Ajout Employé</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">  
+                        <form [formGroup]="empForm" (ngSubmit)="addEmp($event)">
+                            <div class="form-group"  *ngIf='this.empFormErrorMessage != ""'>
+                                <div class="form-control alert alert-danger">
+                                    <div>{{this.empFormErrorMessage}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group"  *ngIf='this.empFormSubmitMessage != ""'>
+                                <div class="form-control alert alert-success">
+                                    <div>{{this.empFormSubmitMessage}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="photoDeProfil">Photo</label>
+                                <input 
+                                    type="file" 
+                                    class="form-control" 
+                                    id="photoDeProfil"
+                                    aria-describedby="photoDeProfil"
+                                    formControlName="photoDeProfil"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="nom">Nom</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="nom"
+                                    aria-describedby="nom"
+                                    formControlName="nom"
+                                    [ngClass]="{ 'is-invalid': submittedEmp && f['nom'].errors }"
+                                />
+                                <div *ngIf="submittedEmp && f['nom'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prenom">Prenom</label>
+                                <input 
+                                    type="text"
+                                    class="form-control"
+                                    id="prenom"
+                                    aria-describedby="prenom"
+                                    formControlName="prenom"
+                                    [ngClass]="{ 'is-invalid': submittedEmp && f['prenom'].errors }"
+                                />
+                                <div *ngIf="submittedEmp && f['prenom'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sexe">Sexe</label>
+                                <select 
+                                    type="sexe"
+                                    class="form-control"
+                                    id="sexe"
+                                    aria-describedby="sexe"
+                                    formControlName="sexe"
+                                    [ngClass]="{ 'is-invalid': submittedEmp && f['sexe'].errors }"
+                                >
+                                    <option value="Homme">Homme</option>
+                                    <option value="Femme">Femme</option>
+                                </select>
+                                <div *ngIf="submittedEmp && f['sexe'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateDeNaissance">Date de naissance</label>
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="dateDeNaissance"
+                                    aria-describedby="dateDeNaissance"
+                                    formControlName="dateDeNaissance"
+                                    [ngClass]="{ 'is-invalid': submittedEmp && f['dateDeNaissance'].errors }"
+                                />
+                                <div *ngIf="submittedEmp && f['dateDeNaissance'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-2">
+                                <button 
+                                    type="submit" 
+                                    class="btn w-100"
+                                    [ngClass]="{ 'btn-primary': !submittingEmp, 'btn-success': submittingEmp}"
+                                >
+                                    <div class="spinner-border" role="status" *ngIf="this.submittingEmp">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    {{ this.createEmpSubmitBtnText }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editEmp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modification Employé</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="empForm" (ngSubmit)="editEmp($event)">
+                            <div class="form-group"  *ngIf='this.empFormErrorMessage != ""'>
+                                <div class="form-control alert alert-danger">
+                                    <div>{{this.empFormErrorMessage}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group"  *ngIf='this.empFormSubmitMessage != ""'>
+                                <div class="form-control alert alert-success">
+                                    <div>{{this.empFormSubmitMessage}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="photoDeProfil">Photo</label>
+                                <input 
+                                    type="file" 
+                                    class="form-control" 
+                                    id="photoDeProfil"
+                                    aria-describedby="photoDeProfil"
+                                    formControlName="photoDeProfil"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="nom">Nom</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="nom"
+                                    aria-describedby="nom"
+                                    formControlName="nom"
+                                    [ngClass]="{ 'is-invalid': submittedEmp && f['nom'].errors }"
+                                />
+                                <div *ngIf="submittedEmp && f['nom'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prenom">Prenom</label>
+                                <input 
+                                    type="text"
+                                    class="form-control"
+                                    id="prenom"
+                                    aria-describedby="prenom"
+                                    formControlName="prenom"
+                                    [ngClass]="{ 'is-invalid': submittedEmp && f['prenom'].errors }"
+                                />
+                                <div *ngIf="submittedEmp && f['prenom'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sexe">Sexe</label>
+                                <select 
+                                    type="sexe"
+                                    class="form-control"
+                                    id="sexe"
+                                    aria-describedby="sexe"
+                                    formControlName="sexe"
+                                    [ngClass]="{ 'is-invalid': submittedEmp && f['sexe'].errors }"
+                                >
+                                    <option value="Homme">Homme</option>
+                                    <option value="Femme">Femme</option>
+                                </select>
+                                <div *ngIf="submittedEmp && f['sexe'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateDeNaissance">Date de naissance</label>
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    id="dateDeNaissance"
+                                    aria-describedby="dateDeNaissance"
+                                    formControlName="dateDeNaissance"
+                                    [ngClass]="{ 'is-invalid': submittedEmp && f['dateDeNaissance'].errors }"
+                                />
+                                <div *ngIf="submittedEmp && f['dateDeNaissance'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-2">
+                                <button 
+                                    type="submit" 
+                                    class="btn w-100"
+                                    [ngClass]="{ 'btn-primary': !submittingEmp, 'btn-success': submittingEmp}"
+                                >
+                                    <div class="spinner-border" role="status" *ngIf="this.submittingEmp">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    {{ this.createEmpSubmitBtnText }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteEmp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Délétion Employé</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div *ngIf="deleteMessage" class="alert alert-danger">{{deleteMessage}}</div>
+                        Etes-vous sur de vouloir supprimer l'employé
+                        <table class="table table-bordered">
+                            <tbody>
+                                <td>{{this.selectedEmp["nom"]}} {{this.selectedEmp["prenom"]}}</td>
+                                <td>{{this.selectedEmp["sexe"]}}</td>
+                                <td>{{this.selectedEmp["dateDeNaissance"]}}</td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-danger" (click)="deleteEmp()">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

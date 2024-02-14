@@ -7,8 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
-export class HoraireDeTravailService extends BaseService{
-    constructor(private http: HttpClient, cookieService: CookieService) { super(cookieService) }
+export class HoraireDeTravailService{
+    constructor(private http: HttpClient) { }
 
     fetchAllHoraire(id?: string){
         return this.http.get(`${Envs.API_BASEURL}employeAPI/horaire/${id}`);

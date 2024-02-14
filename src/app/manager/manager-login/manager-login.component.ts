@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EmployeService } from 'src/app/services/employe/employe.service';
+import { ManagerService } from 'src/app/services/manager/manager.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-login-employe',
-  templateUrl: './login-employe.component.html',
-  styleUrls: ['./login-employe.component.css']
+  selector: 'app-manager-login',
+  templateUrl: './manager-login.component.html',
+  styleUrls: ['./manager-login.component.css']
 })
-export class LoginEmployeComponent implements OnInit {
+export class ManagerLoginComponent implements OnInit {
     submitted: boolean = false;
     errorMessage: string = '';1
     loginForm: FormGroup;
@@ -17,7 +17,7 @@ export class LoginEmployeComponent implements OnInit {
     constructor(
         private fb: FormBuilder, 
         private userService: UserService, 
-        private employeService: EmployeService, 
+        private managerService: ManagerService, 
         private router: Router,
         private activatedRoute: ActivatedRoute) {
         this.mainForm();
@@ -26,13 +26,13 @@ export class LoginEmployeComponent implements OnInit {
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(params => {
             if(params['error'] == "session") this.errorMessage = "Session expiré";
-            if(params['error'] == "auth") this.errorMessage = "Accès pour employé seulement";
+            if(params['error'] == "auth") this.errorMessage = "Accès pour manager seulement";
         });
     }
 
     mainForm() {
         this.loginForm = this.fb.group({
-            login: ['toky', [Validators.required]],
+            login: ['jeanne', [Validators.required]],
             motdepasse: ['12345678', [Validators.required]],
         })
     }
@@ -43,19 +43,17 @@ export class LoginEmployeComponent implements OnInit {
 
     connect() {
         console.log(this.loginForm.value);
-        this.employeService.login(this.loginForm.value)
+        this.managerService.login(this.loginForm.value)
         .subscribe({
             next: (response) => {
                 var res = JSON.parse(JSON.stringify(response));
                 console.log(res);
                 this.userService.setUserToken(res.token.value, res.token.expires);
-                this.router.navigate(['employe/rendezvous']);
+                this.router.navigate(['manager/gestionemploye']);
             },
             error: (error) => {
                 this.errorMessage = error.error.message;
-                console.log(error);
             }
         });
     }
-
 }

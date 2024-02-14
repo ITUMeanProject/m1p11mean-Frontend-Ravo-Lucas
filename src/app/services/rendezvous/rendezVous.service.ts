@@ -7,8 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable({
     providedIn: 'root'
 })
-export class RendezVousService extends BaseService{
-    constructor(private http: HttpClient, cookieService: CookieService) { super(cookieService) }
+export class RendezVousService{
+    constructor(private http: HttpClient) {}
 
     fetchRdv(id?: string){
         var url = (!id) ? `${Envs.API_BASEURL}rendezvousAPI/rendezVous` : `${Envs.API_BASEURL}rendezvousAPI/rendezVous/${id}`

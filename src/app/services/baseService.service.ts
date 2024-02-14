@@ -12,13 +12,13 @@ export class BaseService {
         headers: this.headers
     };
 
-    constructor(private cookieService: CookieService) {
-        this.setHeaders();
-    }
+    // constructor(private cookieService: CookieService) {
+    //     this.setHeaders();
+    // }
 
-    setHeaders(){
-        var token = this.cookieService.get("token");
-        // this.headers.append('Content-Type', 'application/json');
-        this.headers.set("Authorization", `Bearer ${token}`);
-    }
+    // setHeaders(){
+    //     var token = this.cookieService.get("token");
+    //     // this.headers.append('Content-Type', 'application/json');
+    //     this.headers.set("Authorization", `Bearer ${token}`);
+    // }
 }

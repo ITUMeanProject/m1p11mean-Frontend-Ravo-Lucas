@@ -19,6 +19,9 @@ import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-detai
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginEmployeComponent } from './employe/login-employe/login-employe.component';
 import { HeaderInterceptor } from './interceptor/header.interceptor';
+import { ManagerLoginComponent } from './manager/manager-login/manager-login.component';
+import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employe/manager-gestion-employe.component';
+import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +36,10 @@ import { HeaderInterceptor } from './interceptor/header.interceptor';
         RdvCardComponent,
         SuiviDesTachesComponent,
         SuiviDesTachesDetailsComponent,
-        LoginEmployeComponent
+        LoginEmployeComponent,
+        ManagerLoginComponent,
+        ManagerGestionEmployeComponent,
+        ManagerGestionServiceComponent
     ],
     imports: [
         BrowserModule,

@@ -11,9 +11,17 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { ProfileEmployeComponent } from './employe/profile-employe/profile-employe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './common/navbar/navbar.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
+import { SuiviDesTachesComponent } from './employe/suivi-des-taches/suivi-des-taches.component';
+import { SuiviDesTachesDetailsComponent } from './employe/suivi-des-taches-details/suivi-des-taches-details.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LoginEmployeComponent } from './employe/login-employe/login-employe.component';
+import { HeaderInterceptor } from './interceptor/header.interceptor';
+import { ManagerLoginComponent } from './manager/manager-login/manager-login.component';
+import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employe/manager-gestion-employe.component';
+import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +33,13 @@ import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
         ProfileEmployeComponent,
         NavbarComponent,
         HomeComponent,
-        RdvCardComponent
+        RdvCardComponent,
+        SuiviDesTachesComponent,
+        SuiviDesTachesDetailsComponent,
+        LoginEmployeComponent,
+        ManagerLoginComponent,
+        ManagerGestionEmployeComponent,
+        ManagerGestionServiceComponent
     ],
     imports: [
         BrowserModule,
@@ -33,9 +47,14 @@ import { RdvCardComponent } from './common/rdv-card/rdv-card.component';
         FullCalendarModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        DragDropModule
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

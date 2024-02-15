@@ -1,0 +1,46 @@
+<div class="vh-100 d-flex justify-content-start align-items-stretch">
+    <app-navbar></app-navbar>
+
+    <div class="bg-light flex-fill p-5">
+        <div class="bg-white border border-light">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
+                    <div class="py-2">
+                        <form class="px-2" (ngSubmit)="clickFindRdv()">
+                            <div class="row">
+                                <div class="col">
+                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="_date" name="_date" type="date" placeholder="Date" aria-label="Date">
+                                </div>
+                                <div class="col">
+                                    <input class="col-2 form-control btn-sm btn btn-primary" type="submit" value="Rechercher" aria-label="Rechercher">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="my-2 px-2">
+                        <p class="fw-bold">
+                            <span class="text-black"><i class="bi bi-calendar"></i> Le {{ _date | date: 'd MMM Y'}}</span>
+                            <br>
+                            <span>
+                                <span class="text-muted">Montant commission total:   </span>
+                                <span *ngIf="resumeJournee" class="text-black">
+                                    <span *ngFor="let r of resumeJournee">
+                                        {{ r.montantCommision | number}} Ariary
+                                    </span>
+                                    <span *ngIf="resumeJournee.length == 0" class="text-black">
+                                        {{ "0.00" | number }} Ariary
+                                    </span>
+                                </span>
+                            </span>
+                        </p>
+                    </div>
+                    
+                    <div *ngFor="let rv of rendezVous" class="px-2">
+                        <app-rdv-card [rdv]=rv [suividetache]="true"></app-rdv-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

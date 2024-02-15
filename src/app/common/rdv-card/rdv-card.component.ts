@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RdvCardComponent implements OnInit {
 
     @Input() rdv: any;
+    @Input() clt: any = undefined;
+    @Input() suividetache: boolean = false;
 
     constructor() { }
 
@@ -17,7 +19,7 @@ export class RdvCardComponent implements OnInit {
     dateDiff(time: string) {
         var date = new Date(time),
             diff = ((date.getTime() - (new Date()).getTime()) / 1000),
-            daydiff = Math.floor(diff / 86400);
+            daydiff = Math.floor(diff / 86400) + 1;
 
         if (isNaN(daydiff)) return '';
         

@@ -14,9 +14,12 @@ export class ManagerGestionEmployeComponent implements OnInit {
         prenomEmp: '',
         dateDeNaissance: '',
         sexe: '',
+        page: 1
     };
     selectedEmp = {};
     employes: [];
+    currentPage = 1;
+    totalPage = 10;
 
     empForm: FormGroup = new FormGroup({
         photoDeProfil: new FormControl(''),
@@ -37,13 +40,7 @@ export class ManagerGestionEmployeComponent implements OnInit {
     constructor(private formBuilder: FormBuilder, private employeService: EmployeService) { }
 
     ngOnInit(): void {
-        this.employeService.fetchEmp()
-        .subscribe({
-            next: (response) => {
-                this.employes = JSON.parse(JSON.stringify(response));
-            },
-            error: (error) => {}
-        })
+        this.findEmp();
     }
 
     addEmp(event){
@@ -112,12 +109,19 @@ export class ManagerGestionEmployeComponent implements OnInit {
         }
     }
 
-    findEmp(){
+    paginate( page = 1 ){
+        this.currentPage = page;
+        this.findEmp(this.currentPage);
+    }
+
+    findEmp( page = 1 ){
+        this.empSearch.page = page ;
         this.employeService.findEmp(this.empSearch)
         .subscribe({
             next: (response) => {
                 var data = JSON.parse(JSON.stringify(response));
-                this.employes = data;
+                this.employes = data.data;
+                this.totalPage = data.totalPage;
             },
             error: (error) => {
                 console.log(error)

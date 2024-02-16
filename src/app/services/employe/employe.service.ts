@@ -22,6 +22,7 @@ export class EmployeService{
         if(filter.prenomEmp != '' && filter.prenomEmp != undefined) url += `&prenomEmp=${filter.prenomEmp}`;
         if(filter.sexe != '' && filter.sexe != undefined) url += `&sexe=${filter.sexe}`;
         if(filter.dateDeNaissance != '' && filter.dateDeNaissance != undefined) url += `&dateDeNaissance=${filter.dateDeNaissance}`;
+        if(filter.page != '' && filter.page != undefined) url += `&page=${filter.page}`;
 
         return this.http.get(url);
     }

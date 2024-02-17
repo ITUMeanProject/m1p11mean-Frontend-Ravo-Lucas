@@ -2,7 +2,38 @@
     <app-navbar></app-navbar>
     <div class="bg-light flex-fill p-5">
         <div class="bg-white border border-light">
-            <h2>Prendre une rendez-vous</h2>
+            <h2>Prise de rendez-vous</h2>
+
+            <form>
+                <div class="row mb-4">
+                    <label class="form-label col-sm-2" for="form3Example1cg"><strong>Nom</strong></label>
+                    <div class="col-sm-10">
+                        <input type="text" id="form3Example1cg" class="form-control col-sm-10" formControlName="name"/>
+                        <div class="error-message" >
+                            Veuillez ajouter votre nom
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <label class="form-label col-sm-2" for="form3Example1cg"><strong>Nom</strong></label>
+                    <div class="col-sm-10">
+                        <input type="text" id="form3Example1cg" class="form-control col-sm-10" formControlName="name"/>
+                        <div class="error-message" >
+                            Veuillez ajouter votre nom
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit"
+                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Enregistrer</button>
+                    
+                    <button type="submit"
+                        class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Annuler</button>    
+                </div>
+
+            </form>
         </div>
     </div>
 </div>

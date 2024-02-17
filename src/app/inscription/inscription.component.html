@@ -7,14 +7,6 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Créer un compte</h2>
                             <form [formGroup]="inscriptionForm" (ngSubmit)="register()">
-                                <div class="form-outline mb-4">
-                                    <input type="text" id="form3Example1cg" class="form-control form-control-lg" formControlName="name"/>
-                                    <label class="form-label" for="form3Example1cg"><strong>Votre Nom</strong></label>
-
-                                    <div class="error-message" *ngIf="submitted && getForm['name'].errors?.['required']">
-                                        Veuillez ajouter votre nom
-                                    </div>
-                                </div>
 
                                 <div class="form-outline mb-4">
                                     <input type="email" id="form3Example3cg" class="form-control form-control-lg" formControlName="email" />
@@ -30,18 +22,63 @@
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example4cg" class="form-control form-control-lg"  formControlName="password" />
+                                    <input type="text" id="formNom" class="form-control form-control-lg" formControlName="nom"/>
+                                    <label class="form-label" for="formNom"><strong>Votre Nom</strong></label>
+
+                                    <div class="error-message" *ngIf="submitted && getForm['nom'].errors?.['required']">
+                                        Veuillez ajouter votre nom
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="formPrenom" class="form-control form-control-lg" formControlName="prenom"/>
+                                    <label class="form-label" for="formPrenom"><strong>Votre Prenom</strong></label>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="formDateNaissance" class="form-control form-control-lg" formControlName="dateDeNaissance"/>
+                                    <label class="form-label" for="formDateNaissance"><strong>Date de naissance</strong></label>
+
+                                    <div class="error-message" *ngIf="submitted && getForm['dateDeNaissance'].errors?.['required']">
+                                        Veuillez ajouter votre date de naissance
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <select id="formSexe" class="form-control form-control-lg" formControlName="sexe">
+                                        <option></option>
+                                        <option value="Homme">Homme</option>
+                                        <option value="Femme">Femme</option>
+                                    </select>
+                                    <label class="form-label" for="formSexe"><strong>Sexe</strong></label>
+
+                                    <div class="error-message" *ngIf="submitted && getForm['sexe'].errors?.['required']">
+                                        Veuillez selectionner votre sexe
+                                    </div>
+                                </div>
+
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" id="form3Example4cg" class="form-control form-control-lg"  formControlName="motdepasse" />
                                     <label class="form-label" for="form3Example4cg"><strong>Votre de passe</strong></label>
 
-                                    <div class="error-message" *ngIf="submitted && getForm['password'].errors?.['required']">
+                                    <div class="error-message" *ngIf="submitted && getForm['motdepasse'].errors?.['required']">
                                         Veuillez saisir le mot de passe
                                     </div>
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                                    <input type="password" id="form3Example4cdg" class="form-control form-control-lg" formControlName="confirmMotDePass"/>
                                     <label class="form-label" for="form3Example4cdg"><strong>Votre mot de
                                         passe</strong></label>
+                                    
+                                    <div class="error-message" *ngIf="submitted && getForm['confirmMotDePass'].errors?.['required']">
+                                        Veuillez saisir le mot de passe
+                                    </div>
+
+                                    <div class="error-message" *ngIf="submitted && erreurPwd">
+                                        Mot de passe différent
+                                    </div>
                                 </div>
 
                                 <div class="d-flex justify-content-center">

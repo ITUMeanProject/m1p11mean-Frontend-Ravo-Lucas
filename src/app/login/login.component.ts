@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
     submitted: boolean = false;
     loginForm: FormGroup;
     clientConnected : any;
-    errorMessage : any;
+    errorMessage : string = '';
 
     constructor(
         private fb: FormBuilder,
@@ -45,10 +45,10 @@ export class LoginComponent implements OnInit {
         } else {
             let infoUser = {
                 login : this.loginForm.controls['userName'].value,
-                pwd : this.loginForm.controls['password'].value
+                motdepasse : this.loginForm.controls['password'].value
             }
 
-            this.clientService.login(this.loginForm.value)
+            this.clientService.login(infoUser)
             .subscribe({
                 next: (response) => {
                     var res = JSON.parse(JSON.stringify(response));
@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
                 },
                 error: (error) => {
                     this.errorMessage = error.error.message;
-                    console.log(error);
                 }
             });
             

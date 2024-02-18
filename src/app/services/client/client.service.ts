@@ -28,6 +28,6 @@ export class ClientService {
     }
 
     login(formData: any) {
-        return this.http.post(`${Envs.API_BASEURL}login/manager`, formData);
+        return this.http.post(`${Envs.API_BASEURL}login/client`, formData);
     }
 }

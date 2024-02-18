@@ -36,7 +36,12 @@ export class InscriptionComponent implements OnInit {
                     Validators.pattern('[a-z0-9._%+1]+@[a-z0-9.-]+.[a-z]{2,3}$')
                 ]
             ],
-            motdepasse: ['', [Validators.required]],
+            motdepasse: ['', 
+                [
+                    Validators.required,
+                    Validators.minLength(8)
+                ]
+            ],
             confirmMotDePass: ['', [Validators.required]],
         })
     }

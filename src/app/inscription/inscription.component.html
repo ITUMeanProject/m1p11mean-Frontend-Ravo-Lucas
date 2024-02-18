@@ -65,6 +65,10 @@
                                     <div class="error-message" *ngIf="submitted && getForm['motdepasse'].errors?.['required']">
                                         Veuillez saisir le mot de passe
                                     </div>
+
+                                    <div class="error-message" *ngIf="submitted && getForm['motdepasse'].errors?.['minlength']">
+                                        Le mot doit être au minimum 8 caractères
+                                    </div>
                                 </div>
 
                                 <div class="form-outline mb-4">

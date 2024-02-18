@@ -22,6 +22,8 @@ import { HeaderInterceptor } from './interceptor/header.interceptor';
 import { ManagerLoginComponent } from './manager/manager-login/manager-login.component';
 import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employe/manager-gestion-employe.component';
 import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
+import { StatistiqueComponent } from './manager/statistique/statistique.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
     declarations: [
@@ -39,7 +41,8 @@ import { ManagerGestionServiceComponent } from './manager/manager-gestion-servic
         LoginEmployeComponent,
         ManagerLoginComponent,
         ManagerGestionEmployeComponent,
-        ManagerGestionServiceComponent
+        ManagerGestionServiceComponent,
+        StatistiqueComponent
     ],
     imports: [
         BrowserModule,
@@ -48,7 +51,8 @@ import { ManagerGestionServiceComponent } from './manager/manager-gestion-servic
         ReactiveFormsModule,
         FormsModule,
         HttpClientModule,
-        DragDropModule
+        DragDropModule,
+        ChartsModule
     ],
     providers: [
         {

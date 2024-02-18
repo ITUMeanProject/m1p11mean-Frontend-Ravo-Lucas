@@ -1,0 +1,99 @@
+<div class="vh-100 d-flex justify-content-start align-items-stretch">
+    <app-navbar></app-navbar>
+
+    <div class="bg-light flex-fill p-5">
+        
+        <div class="d-flex justify-content-start align-items-stretch bg-white p-4">
+            <div class="px-4">
+                
+                <div class="py-2">
+                    <form class="px-2" (ngSubmit)="setChartData()">
+                        <h2>
+                            <span>Statistiques </span>
+                            <span *ngIf="filter.time == 'jour'" class="text-muted">{{ this.filter.interval | date : 'MMMM yyyy' }}</span>
+                            <span *ngIf="filter.time == 'mois'" class="text-muted">{{ this.filter.interval }}</span>
+                        </h2>
+                        <div class="row">
+                            <div class="col">
+                                <select class="col-2 form-control form-control-sm"  aria-label="time" [(ngModel)]="filter.time" name="filter.time">
+                                    <option value="jour">Jour</option>
+                                    <option value="mois">Mois</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="col-2 form-control form-control-sm" *ngIf="filter.time == 'jour'" [(ngModel)]="filter.interval" name="filter.interval" type="month" >
+                                <input class="col-2 form-control form-control-sm" *ngIf="filter.time == 'mois'" [(ngModel)]="filter.interval" name="filter.interval" type="number" placeholder="Année" aria-label="Année" min="1970">
+                            </div>
+                            <!-- <div class="col">
+                                <select class="col-2 form-control form-control-sm" (change)="changeChartType($event.target.value)">
+                                    <option value="bar">Bar</option>
+                                    <option value="line">Line</option>
+                                    <option value="pie">Pie</option>
+                                </select>
+                            </div> -->
+                            <div class="col">
+                                <input class="col-2 form-control btn-sm btn btn-primary" type="submit" value="Rechercher" aria-label="Rechercher">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white border border-light my-4">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-tempstravail-tab" data-bs-toggle="tab" data-bs-target="#nav-tempstravail" type="button" role="tab" aria-controls="nav-tempstravail" aria-selected="true">Temps moyenne de travail</button>
+
+                    <button class="nav-link" id="nav-nbreservation-tab" data-bs-toggle="tab" data-bs-target="#nav-nbreservation" type="button" role="tab" aria-controls="nav-nbreservation" aria-selected="false">Nombre de réservation</button>
+
+                    <button class="nav-link" id="nav-chiffreDaffaire-tab" data-bs-toggle="tab" data-bs-target="#nav-chiffreDaffaire" type="button" role="tab" aria-controls="nav-chiffreDaffaire" aria-selected="false">Chiffre d'affaire</button>
+
+                    <button class="nav-link" id="nav-benefice-tab" data-bs-toggle="tab" data-bs-target="#nav-benefice" type="button" role="tab" aria-controls="nav-benefice" aria-selected="false">Benefice</button>
+                </div>
+            </nav>
+            <div class="tab-content p-4" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-tempstravail" role="tabpanel" aria-labelledby="nav-tempstravail-tab">
+                    <canvas
+                        baseChart
+                        [chartType]="chartType"
+                        [legend]="true"
+                        [datasets]="tempsMoyenneDeTravailChartData"
+                        [options]="chartOptions"
+                        [labels]="tempsMoyenneDeTravailChartLabels"
+                    ></canvas>
+                </div>
+                <div class="tab-pane fade bg-muted" id="nav-nbreservation" role="tabpanel" aria-labelledby="nav-nbreservation-tab">
+                    <canvas
+                        baseChart
+                        [chartType]="chartType"
+                        [legend]="true"
+                        [datasets]="nbReservationChartData"
+                        [options]="chartOptions"
+                        [labels]="nbReservationChartLabels"
+                    ></canvas>
+                </div>
+                <div class="tab-pane fade bg-muted" id="nav-chiffreDaffaire" role="tabpanel" aria-labelledby="nav-chiffreDaffaire-tab">
+                    <canvas
+                        baseChart
+                        [chartType]="chartType"
+                        [legend]="true"
+                        [datasets]="chiffreDaffaireChartData"
+                        [options]="chartOptions"
+                        [labels]="chiffreDaffaireChartLabels"
+                    ></canvas>
+                </div>
+                <div class="tab-pane fade bg-muted" id="nav-benefice" role="tabpanel" aria-labelledby="nav-benefice-tab">
+                    <canvas
+                        baseChart
+                        [chartType]="'bar'"
+                        [legend]="true"
+                        [datasets]="beneficeChartData"
+                        [options]="chartOptions"
+                        [labels]="beneficeChartLabels"
+                    ></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

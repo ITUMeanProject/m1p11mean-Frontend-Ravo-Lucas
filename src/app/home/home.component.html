@@ -37,15 +37,60 @@
                         </div>
 
                         <div class="col-sm-10">
-                            <div *ngFor="let activiter of activiterList">
+                            <div *ngFor="let service of serviceList">
                                 <label>
-                                    <input type="radio" name="activiter" [(ngModel)]="selectedOption" [value]="activiter" />
-                                    {{ activiter }}
+                                    <input type="radio" name="service" [(ngModel)]="selectedService" [value]="service" />
+                                    {{ service.nom }}
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div *ngIf="selectedService" class="row mb-4">
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-3 row">
+                        <div class="col-sm-6">
+                            <label>Prix</label>: {{selectedService.prix}} €
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <label>Durée</label>: {{selectedService.duree}} h
+                        </div>
+                    </div>
+
+                    <div class="col-sm-7 row">
+                        <div class="row col-sm-6">
+                            <label class="form-label col-sm-4" for="form3Example1cg"><strong>Date: </strong></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="form3Example1cg" class="form-control col-sm-10" [(ngModel)]="dateRendezvous" [value]="dateRendezvous" [ngModelOptions]="{standalone: true}"/>
+                            </div>
+                        </div>
+                        
+                        <div class="row col-sm-6">
+                            <label class="form-label col-sm-4" for="form3Example1cg"><strong>Heure: </strong></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="form3Example1cg" class="form-control col-sm-10" [(ngModel)]="heureRendezvous" [value]="heureRendezvous" [ngModelOptions]="{standalone: true}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-7 row"> 
+                        <div class="row col-sm-10">
+                            <label class="form-label col-sm-4" for="form3Example1cg"><strong>Choisir le responsable: </strong></label>
+                            <div class="col-sm-8">
+                                <select>
+                                    <option></option>
+                                    <option *ngFor="let employe of employeDispo" value="{{employe._id}}">{{employe.nom}} {{employe.prenom}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
 
                 <div class="row mb-4">
                     <label class="form-label col-sm-2" for="form3Example1cg"><strong>Commentaire</strong></label>

@@ -26,6 +26,11 @@ export class EmployeService{
         return this.http.get(url);
     }
 
+    finEmplByHoraireDeTravail(_date: string, _time: string) {
+        var url = `${Envs.API_BASEURL}employeAPI/employeDispo?_date=${_date}&_date=${_time}`;
+        return this.http.get(url); 
+    }
+
     createEmploye(formData: any){
         return this.http.post(`${Envs.API_BASEURL}employeAPI/employe`, formData);
     }

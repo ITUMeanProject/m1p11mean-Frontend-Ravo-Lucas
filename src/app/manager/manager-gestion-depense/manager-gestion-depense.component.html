@@ -1,0 +1,181 @@
+<div class="vh-100 d-flex justify-content-start align-items-stretch">
+    <app-navbar></app-navbar>
+
+    <div class="bg-light flex-fill overflow-auto">
+        <div class="bg-white border border-light py-5">
+            <div class="px-2">
+                <h1>Dépense</h1>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutDepense" (click)="resetDepenseForm()">
+                        Ajouter nouveau dépense
+                </button>
+                <div class="py-2">
+                    <form (ngSubmit)="findDepense()">
+                        <div class="row">
+                            <div class="col">
+                                <select class="col-2 form-control form-control-sm" [(ngModel)]="depenseSearch.type" name="type" aria-label="type">
+                                    <option value="" selected>Tous</option>
+                                    <option value="Autres dépenses">Autres dépenses</option>
+                                    <option value="Achat piéces">Achat piéces</option>
+                                    <option value="Loyer">Loyer</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input class="col-2 form-control form-control-sm" [(ngModel)]="depenseSearch.prix" name="prix" type="text" placeholder="Prix" aria-label="Prix">
+                            </div>
+                            <div class="col">
+                                <input class="col-2 form-control btn-sm btn btn-primary" type="submit" value="Rechercher" aria-label="Rechercher">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>description</th>
+                        <th>Prix</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let depense of depenses">
+                        <td>
+                            {{depense.type}}
+                        </td>
+                        <td>{{depense.description}}</td>
+                        <td>{{depense.prix}}</td>
+                        <td class="d-flex">
+                            <!-- <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#editDepense" (click)="selectDepense(depense)">
+                                <i class="bi bi-pencil-square"></i>
+                            </button> -->
+                            <button type="button" class="btn btn-sm btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteDepense" (click)="selectDepense(depense)">
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="px-2">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link">Page:</a></li>
+                        <li class="page-item"><a class="page-link" role="button" *ngIf="currentPage - 1 > 0" (click)="paginate(currentPage-1)">{{currentPage - 1}}</a></li>
+                        <li class="page-item active"><a class="page-link" role="button" (click)="paginate(currentPage)">{{currentPage}}</a></li>
+                        <li class="page-item"><a class="page-link" role="button" *ngIf="currentPage + 1 <= totalPage" (click)="paginate(currentPage+1)">{{currentPage + 1}}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-group">
+        <div class="modal fade" id="ajoutDepense" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Ajout Dépense</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">  
+                        <form [formGroup]="depenseForm" (ngSubmit)="createDepense($event)">
+                            <div class="form-group"  *ngIf='this.depenseFormErrorMessage != ""'>
+                                <div class="form-control alert alert-danger">
+                                    <div>{{this.depenseFormErrorMessage}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group"  *ngIf='this.depenseFormSubmitMessage != ""'>
+                                <div class="form-control alert alert-success">
+                                    <div>{{this.depenseFormSubmitMessage}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="type">Type</label>
+                                <select 
+                                    class="form-control"
+                                    id="type"
+                                    aria-describedby="type"
+                                    formControlName="type"
+                                    [ngClass]="{ 'is-invalid': submittedDepense && f['type'].errors }"
+                                >
+                                    <option value="Autres dépenses" selected>Autres dépenses</option>
+                                    <option value="Achat piéces">Achat piéces</option>
+                                    <option value="Loyer">Loyer</option>
+                                </select>
+                                <div *ngIf="submittedDepense && f['type'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['type'].errors['required']">Type requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prix">Prix</label>
+                                <input 
+                                    class="form-control"
+                                    id="prix"
+                                    type="number"
+                                    min="0"
+                                    aria-describedby="prix"
+                                    formControlName="prix"
+                                    [ngClass]="{ 'is-invalid': submittedDepense && f['prix'].errors }"
+                                >
+                                <div *ngIf="submittedDepense && f['prix'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['prix'].errors['required']">Prix requis</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea 
+                                    class="form-control"
+                                    id="description"
+                                    type="text"
+                                    min="0"
+                                    aria-describedby="description"
+                                    formControlName="description"
+                                    [ngClass]="{ 'is-invalid': submittedDepense && f['description'].errors }"
+                                >
+                                </textarea>
+                            </div>
+                            <div class="form-group mt-2">
+                                <button 
+                                    type="submit" 
+                                    class="btn w-100"
+                                    [ngClass]="{ 'btn-primary': !submittingDepense, 'btn-success': submittingDepense}"
+                                >
+                                    <div class="spinner-border" role="status" *ngIf="this.submittingDepense">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    {{ this.createDepenseSubmitBtnText }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="deleteDepense" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Délétion Dépense</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div *ngIf="deleteMessage" class="alert alert-danger">{{deleteMessage}}</div>
+                        Etes-vous sur de vouloir supprimer
+                        <table class="table table-bordered">
+                            <tbody>
+                                <td>{{this.selectedDepense["type"]}}</td>
+                                <td>{{this.selectedDepense["desc"]}}</td>
+                                <td>{{this.selectedDepense["prix"]}}</td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-danger" (click)="deleteDepense()">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

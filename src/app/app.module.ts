@@ -24,6 +24,7 @@ import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employ
 import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
 import { StatistiqueComponent } from './manager/statistique/statistique.component';
 import { ChartsModule } from 'ng2-charts';
+import { ManagerGestionDepenseComponent } from './manager/manager-gestion-depense/manager-gestion-depense.component';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { ChartsModule } from 'ng2-charts';
         ManagerLoginComponent,
         ManagerGestionEmployeComponent,
         ManagerGestionServiceComponent,
-        StatistiqueComponent
+        StatistiqueComponent,
+        ManagerGestionDepenseComponent
     ],
     imports: [
         BrowserModule,

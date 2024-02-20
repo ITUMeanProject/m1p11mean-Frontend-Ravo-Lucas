@@ -39,4 +39,8 @@ export class RendezVousService{
     updateRdv(id: string, formData: any) {
         return this.http.put(`${Envs.API_BASEURL}rendezvousAPI/rendezvous/${id}`, formData, { observe: 'response' });
     }
+
+    createRdv(formData: any) {
+        return this.http.post(`${Envs.API_BASEURL}rendezvousAPI/rendezvous`, formData);
+    }
 }

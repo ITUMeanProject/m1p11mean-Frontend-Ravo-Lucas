@@ -38,74 +38,109 @@
                                     <div>{{this.profileSubmitMessage}}</div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="pdp">Photo</label>
-                                <input 
-                                    type="file" 
-                                    class="form-control" 
-                                    id="pdp"
-                                    aria-describedby="pdp"
-                                    formControlName="pdp"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="nom">Nom</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    id="nom"
-                                    aria-describedby="nom"
-                                    formControlName="nom"
-                                    [ngClass]="{ 'is-invalid': submittedProfile && f['nom'].errors }"
-                                />
-                                <div *ngIf="submittedProfile && f['nom'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                            <div class="d-flex">
+                                <div class="flex-fill me-2">
+                                    <div class="form-group">
+                                        <label for="pdp">Photo</label>
+                                        <input 
+                                            type="file" 
+                                            class="form-control" 
+                                            id="pdp"
+                                            aria-describedby="pdp"
+                                            formControlName="pdp"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nom">Nom</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            id="nom"
+                                            aria-describedby="nom"
+                                            formControlName="nom"
+                                            [ngClass]="{ 'is-invalid': submittedProfile && f['nom'].errors }"
+                                        />
+                                        <div *ngIf="submittedProfile && f['nom'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prenom">Prenom</label>
+                                        <input 
+                                            type="text"
+                                            class="form-control"
+                                            id="prenom"
+                                            aria-describedby="prenom"
+                                            formControlName="prenom"
+                                            [ngClass]="{ 'is-invalid': submittedProfile && f['prenom'].errors }"
+                                        />
+                                        <div *ngIf="submittedProfile && f['prenom'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sexe">Sexe</label>
+                                        <select 
+                                            type="sexe"
+                                            class="form-control"
+                                            id="sexe"
+                                            aria-describedby="sexe"
+                                            formControlName="sexe"
+                                            [ngClass]="{ 'is-invalid': submittedProfile && f['sexe'].errors }"
+                                        >
+                                            <option value="Homme">Homme</option>
+                                            <option value="Femme">Femme</option>
+                                        </select>
+                                        <div *ngIf="submittedProfile && f['sexe'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dateDeNaissance">Date de naissance</label>
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            id="dateDeNaissance"
+                                            aria-describedby="dateDeNaissance"
+                                            formControlName="dateDeNaissance"
+                                            [ngClass]="{ 'is-invalid': submittedProfile && f['dateDeNaissance'].errors }"
+                                        />
+                                        <div *ngIf="submittedProfile && f['dateDeNaissance'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="prenom">Prenom</label>
-                                <input 
-                                    type="text"
-                                    class="form-control"
-                                    id="prenom"
-                                    aria-describedby="prenom"
-                                    formControlName="prenom"
-                                    [ngClass]="{ 'is-invalid': submittedProfile && f['prenom'].errors }"
-                                />
-                                <div *ngIf="submittedProfile && f['prenom'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
+                                <div class="flex-fill">
+                                    <div class="form-group">
+                                        <label for="login">Login</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            id="login"
+                                            aria-describedby="login"
+                                            formControlName="login"
+                                            [ngClass]="{ 'is-invalid': submittedProfile && f['login'].errors }"
+                                        />
+                                        <div *ngIf="submittedProfile && f['login'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['login'].errors['required']">Login requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="motdepasse">Mot de passe</label>
+                                        <input 
+                                            type="password" 
+                                            class="form-control" 
+                                            id="motdepasse"
+                                            aria-describedby="motdepasse"
+                                            formControlName="motdepasse"
+                                            [ngClass]="{ 'is-invalid': submittedProfile && f['motdepasse'].errors }"
+                                        />
+                                        <div *ngIf="submittedProfile && f['motdepasse'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['motdepasse'].errors['required']">Mot de passe requis</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="sexe">Sexe</label>
-                                <select 
-                                    type="sexe"
-                                    class="form-control"
-                                    id="sexe"
-                                    aria-describedby="sexe"
-                                    formControlName="sexe"
-                                    [ngClass]="{ 'is-invalid': submittedProfile && f['sexe'].errors }"
-                                >
-                                    <option value="Homme">Homme</option>
-                                    <option value="Femme">Femme</option>
-                                </select>
-                                <div *ngIf="submittedProfile && f['sexe'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="dateDeNaissance">Date de naissance</label>
-                                <input
-                                    type="date"
-                                    class="form-control"
-                                    id="dateDeNaissance"
-                                    aria-describedby="dateDeNaissance"
-                                    formControlName="dateDeNaissance"
-                                    [ngClass]="{ 'is-invalid': submittedProfile && f['dateDeNaissance'].errors }"
-                                />
-                                <div *ngIf="submittedProfile && f['dateDeNaissance'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
-                                </div>
+
                             </div>
                             <div class="form-group mt-2">
                                 <button 

@@ -26,7 +26,9 @@ export class ManagerGestionEmployeComponent implements OnInit {
 		nom: new FormControl(''),
         prenom: new FormControl(''),
 		sexe: new FormControl('Homme'),
-        dateDeNaissance: new FormControl('')
+        dateDeNaissance: new FormControl(''),
+        login: new FormControl(''),
+        motdepasse: new FormControl('')
 	});
 
     deleteMessage = "";
@@ -55,6 +57,8 @@ export class ManagerGestionEmployeComponent implements OnInit {
             formData.append("prenom",  this.empForm.get("prenom")!.value);
             formData.append("sexe",  this.empForm.get("sexe")!.value);
             formData.append("dateDeNaissance",  this.empForm.get("dateDeNaissance")!.value);
+            formData.append("login",  this.empForm.get("login")!.value);
+            formData.append("motdepasse",  this.empForm.get("motdepasse")!.value);
 
             Array.from(event.target[0].files).forEach( (file) => formData.append("photoDeProfil", file));
 
@@ -88,6 +92,8 @@ export class ManagerGestionEmployeComponent implements OnInit {
             formData.append("prenom",  this.empForm.get("prenom")!.value);
             formData.append("sexe",  this.empForm.get("sexe")!.value);
             formData.append("dateDeNaissance",  this.empForm.get("dateDeNaissance")!.value);
+            formData.append("login",  this.empForm.get("login")!.value);
+            formData.append("motdepasse",  this.empForm.get("motdepasse")!.value);
 
             Array.from(event.target[0].files).forEach( (file) => formData.append("photoDeProfil", file));
 
@@ -159,19 +165,32 @@ export class ManagerGestionEmployeComponent implements OnInit {
             nom: new FormControl(''),
             prenom: new FormControl(''),
             sexe: new FormControl('Homme'),
-            dateDeNaissance: new FormControl('')
+            dateDeNaissance: new FormControl(''),
+            login: new FormControl(''),
+            motdepasse: new FormControl('')
         });
     }
 
     selectEmp(emp){
         this.resetEmpMessage();
-        this.selectedEmp = emp;
-        this.empForm = new FormGroup({
-            photoDeProfil: new FormControl(''),
-            nom: new FormControl(emp.nom),
-            prenom: new FormControl(emp.prenom),
-            sexe: new FormControl(emp.sexe),
-            dateDeNaissance: new FormControl(emp.dateDeNaissance.split('T')[0])
-        });
+
+        this.employeService.getEmpCompte(emp._id)
+        .subscribe({
+            next: (response) => {
+                this.selectedEmp = emp;
+
+                this.selectedEmp["compte"] = JSON.parse(JSON.stringify(response)) || {};
+                
+                this.empForm = new FormGroup({
+                    photoDeProfil: new FormControl(''),
+                    nom: new FormControl(emp.nom),
+                    prenom: new FormControl(emp.prenom),
+                    sexe: new FormControl(emp.sexe),
+                    dateDeNaissance: new FormControl(emp.dateDeNaissance.split('T')[0]),
+                    login: new FormControl(this.selectedEmp["compte"].login),
+                    motdepasse: new FormControl(this.selectedEmp["compte"].motdepasse)
+                });
+            }
+        })
     }
 }

@@ -16,6 +16,11 @@ export class EmployeService{
         return this.http.get(url);
     }
 
+    getEmpCompte(id: string){
+        var url = `${Envs.API_BASEURL}employeAPI/employe/compte/${id}`;
+        return this.http.get(url);
+    }
+
     findEmp(filter){
         var url = `${Envs.API_BASEURL}employeAPI/findEmploye?`;
         if(filter.nomEmp != '' && filter.nomEmp != undefined) url += `&nomEmp=${filter.nomEmp}`;

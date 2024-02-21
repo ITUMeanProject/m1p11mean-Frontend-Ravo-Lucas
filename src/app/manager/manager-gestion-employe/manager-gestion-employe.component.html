@@ -76,7 +76,7 @@
 
     <div id="modal-group">
         <div class="modal fade" id="ajoutEmp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Ajout Employé</h5>
@@ -94,73 +94,107 @@
                                     <div>{{this.empFormSubmitMessage}}</div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="photoDeProfil">Photo</label>
-                                <input 
-                                    type="file" 
-                                    class="form-control" 
-                                    id="photoDeProfil"
-                                    aria-describedby="photoDeProfil"
-                                    formControlName="photoDeProfil"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="nom">Nom</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    id="nom"
-                                    aria-describedby="nom"
-                                    formControlName="nom"
-                                    [ngClass]="{ 'is-invalid': submittedEmp && f['nom'].errors }"
-                                />
-                                <div *ngIf="submittedEmp && f['nom'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                            <div class="d-flex justify-content-evenly">
+                                <div>
+                                    <div class="form-group">
+                                        <label for="photoDeProfilEdit">Photo</label>
+                                        <input 
+                                            type="file" 
+                                            class="form-control" 
+                                            id="photoDeProfilEdit"
+                                            aria-describedby="photoDeProfil"
+                                            formControlName="photoDeProfil"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nomEdit">Nom</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            id="nomEdit"
+                                            aria-describedby="nom"
+                                            formControlName="nom"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['nom'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['nom'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prenomEdit">Prenom</label>
+                                        <input 
+                                            type="text"
+                                            class="form-control"
+                                            id="prenomEdit"
+                                            aria-describedby="prenom"
+                                            formControlName="prenom"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['prenom'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['prenom'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sexeEdit">Sexe</label>
+                                        <select 
+                                            type="sexe"
+                                            class="form-control"
+                                            id="sexeEdit"
+                                            aria-describedby="sexe"
+                                            formControlName="sexe"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['sexe'].errors }"
+                                        >
+                                            <option value="Homme">Homme</option>
+                                            <option value="Femme">Femme</option>
+                                        </select>
+                                        <div *ngIf="submittedEmp && f['sexe'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dateDeNaissanceEdit">Date de naissance</label>
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            id="dateDeNaissanceEdit"
+                                            aria-describedby="dateDeNaissance"
+                                            formControlName="dateDeNaissance"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['dateDeNaissance'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['dateDeNaissance'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="prenom">Prenom</label>
-                                <input 
-                                    type="text"
-                                    class="form-control"
-                                    id="prenom"
-                                    aria-describedby="prenom"
-                                    formControlName="prenom"
-                                    [ngClass]="{ 'is-invalid': submittedEmp && f['prenom'].errors }"
-                                />
-                                <div *ngIf="submittedEmp && f['prenom'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="sexe">Sexe</label>
-                                <select 
-                                    type="sexe"
-                                    class="form-control"
-                                    id="sexe"
-                                    aria-describedby="sexe"
-                                    formControlName="sexe"
-                                    [ngClass]="{ 'is-invalid': submittedEmp && f['sexe'].errors }"
-                                >
-                                    <option value="Homme">Homme</option>
-                                    <option value="Femme">Femme</option>
-                                </select>
-                                <div *ngIf="submittedEmp && f['sexe'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="dateDeNaissance">Date de naissance</label>
-                                <input
-                                    type="date"
-                                    class="form-control"
-                                    id="dateDeNaissance"
-                                    aria-describedby="dateDeNaissance"
-                                    formControlName="dateDeNaissance"
-                                    [ngClass]="{ 'is-invalid': submittedEmp && f['dateDeNaissance'].errors }"
-                                />
-                                <div *ngIf="submittedEmp && f['dateDeNaissance'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
+                                <div>
+                                    <div class="form-group">
+                                        <label for="loginEdit">Login</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            id="loginEdit"
+                                            aria-describedby="login"
+                                            formControlName="login"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['login'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['login'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['login'].errors['required']">Login requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="motdepasseEdit">Mot de passe</label>
+                                        <input 
+                                            type="password"
+                                            class="form-control"
+                                            id="motdepasseEdit"
+                                            aria-describedby="motdepasse"
+                                            formControlName="motdepasse"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['motdepasse'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['motdepasse'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['motdepasse'].errors['required']">Mot de passe requis</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group mt-2">
@@ -181,7 +215,7 @@
             </div>
         </div>
         <div class="modal fade" id="editEmp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Modification Employé</h5>
@@ -199,73 +233,108 @@
                                     <div>{{this.empFormSubmitMessage}}</div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="photoDeProfil">Photo</label>
-                                <input 
-                                    type="file" 
-                                    class="form-control" 
-                                    id="photoDeProfil"
-                                    aria-describedby="photoDeProfil"
-                                    formControlName="photoDeProfil"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="nom">Nom</label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    id="nom"
-                                    aria-describedby="nom"
-                                    formControlName="nom"
-                                    [ngClass]="{ 'is-invalid': submittedEmp && f['nom'].errors }"
-                                />
-                                <div *ngIf="submittedEmp && f['nom'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                            
+                            <div class="d-flex justify-content-evenly">
+                                <div>
+                                    <div class="form-group">
+                                        <label for="photoDeProfil">Photo</label>
+                                        <input 
+                                            type="file" 
+                                            class="form-control" 
+                                            id="photoDeProfil"
+                                            aria-describedby="photoDeProfil"
+                                            formControlName="photoDeProfil"
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nom">Nom</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            id="nom"
+                                            aria-describedby="nom"
+                                            formControlName="nom"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['nom'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['nom'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prenom">Prenom</label>
+                                        <input 
+                                            type="text"
+                                            class="form-control"
+                                            id="prenom"
+                                            aria-describedby="prenom"
+                                            formControlName="prenom"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['prenom'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['prenom'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sexe">Sexe</label>
+                                        <select 
+                                            type="sexe"
+                                            class="form-control"
+                                            id="sexe"
+                                            aria-describedby="sexe"
+                                            formControlName="sexe"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['sexe'].errors }"
+                                        >
+                                            <option value="Homme">Homme</option>
+                                            <option value="Femme">Femme</option>
+                                        </select>
+                                        <div *ngIf="submittedEmp && f['sexe'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dateDeNaissance">Date de naissance</label>
+                                        <input
+                                            type="date"
+                                            class="form-control"
+                                            id="dateDeNaissance"
+                                            aria-describedby="dateDeNaissance"
+                                            formControlName="dateDeNaissance"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['dateDeNaissance'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['dateDeNaissance'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="prenom">Prenom</label>
-                                <input 
-                                    type="text"
-                                    class="form-control"
-                                    id="prenom"
-                                    aria-describedby="prenom"
-                                    formControlName="prenom"
-                                    [ngClass]="{ 'is-invalid': submittedEmp && f['prenom'].errors }"
-                                />
-                                <div *ngIf="submittedEmp && f['prenom'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="sexe">Sexe</label>
-                                <select 
-                                    type="sexe"
-                                    class="form-control"
-                                    id="sexe"
-                                    aria-describedby="sexe"
-                                    formControlName="sexe"
-                                    [ngClass]="{ 'is-invalid': submittedEmp && f['sexe'].errors }"
-                                >
-                                    <option value="Homme">Homme</option>
-                                    <option value="Femme">Femme</option>
-                                </select>
-                                <div *ngIf="submittedEmp && f['sexe'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="dateDeNaissance">Date de naissance</label>
-                                <input
-                                    type="date"
-                                    class="form-control"
-                                    id="dateDeNaissance"
-                                    aria-describedby="dateDeNaissance"
-                                    formControlName="dateDeNaissance"
-                                    [ngClass]="{ 'is-invalid': submittedEmp && f['dateDeNaissance'].errors }"
-                                />
-                                <div *ngIf="submittedEmp && f['dateDeNaissance'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
+                                <div>
+                                    <div class="form-group">
+                                        <label for="login">Login</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            id="login"
+                                            aria-describedby="login"
+                                            formControlName="login"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['login'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['login'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['login'].errors['required']">Login requis</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="motdepasse">Mot de passe</label>
+                                        <input 
+                                            type="password"
+                                            class="form-control"
+                                            id="motdepasse"
+                                            aria-describedby="motdepasse"
+                                            formControlName="motdepasse"
+                                            [ngClass]="{ 'is-invalid': submittedEmp && f['motdepasse'].errors }"
+                                        />
+                                        <div *ngIf="submittedEmp && f['motdepasse'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['motdepasse'].errors['required']">Mot de passe requis</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group mt-2">

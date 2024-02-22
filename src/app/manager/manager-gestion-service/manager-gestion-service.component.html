@@ -65,11 +65,10 @@
             <div class="px-2">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        <li class="page-item"><a class="page-link">Page:</a></li>
+                        <li class="page-item"><a class="page-link" role="button" *ngIf="currentPage - 1 > 0" (click)="paginate(currentPage-1)">{{currentPage - 1}}</a></li>
+                        <li class="page-item active"><a class="page-link" role="button" (click)="paginate(currentPage)">{{currentPage}}</a></li>
+                        <li class="page-item"><a class="page-link" role="button" *ngIf="currentPage + 1 <= totalPage" (click)="paginate(currentPage+1)">{{currentPage + 1}}</a></li>
                     </ul>
                 </nav>
             </div>

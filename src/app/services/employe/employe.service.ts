@@ -16,12 +16,18 @@ export class EmployeService{
         return this.http.get(url);
     }
 
+    getEmpCompte(id: string){
+        var url = `${Envs.API_BASEURL}employeAPI/employe/compte/${id}`;
+        return this.http.get(url);
+    }
+
     findEmp(filter){
         var url = `${Envs.API_BASEURL}employeAPI/findEmploye?`;
         if(filter.nomEmp != '' && filter.nomEmp != undefined) url += `&nomEmp=${filter.nomEmp}`;
         if(filter.prenomEmp != '' && filter.prenomEmp != undefined) url += `&prenomEmp=${filter.prenomEmp}`;
         if(filter.sexe != '' && filter.sexe != undefined) url += `&sexe=${filter.sexe}`;
         if(filter.dateDeNaissance != '' && filter.dateDeNaissance != undefined) url += `&dateDeNaissance=${filter.dateDeNaissance}`;
+        if(filter.page != '' && filter.page != undefined) url += `&page=${filter.page}`;
 
         return this.http.get(url);
     }

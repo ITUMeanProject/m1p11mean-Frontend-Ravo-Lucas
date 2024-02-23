@@ -21,4 +21,8 @@ export class HoraireDeTravailService{
     createHoraire(formData: any){
         return this.http.post(`${Envs.API_BASEURL}employeAPI/horaire`, formData);
     }
+
+    createOrUpdateHoraire(id: string, formData: any){
+        return this.http.put(`${Envs.API_BASEURL}employeAPI/horaire/${id}`, formData);
+    }
 }

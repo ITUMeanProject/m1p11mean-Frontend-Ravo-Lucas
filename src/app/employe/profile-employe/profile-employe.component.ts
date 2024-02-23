@@ -147,7 +147,7 @@ export class ProfileEmployeComponent implements OnInit {
         this.submittingHoraire = true;
         this.horaireForm.value.employe = this.user["userId"];
 
-        this.horaireDeTravailService.createHoraire(this.horaireForm.value)
+        this.horaireDeTravailService.createOrUpdateHoraire(this.employe._id, this.horaireForm.value)
         .subscribe(
             response => {
                 this.submittedHoraire = true;

@@ -19,8 +19,11 @@ export class ProfileEmployeComponent implements OnInit {
 		nom: new FormControl(''),
         prenom: new FormControl(''),
 		sexe: new FormControl(''),
-        dateDeNaissance: new FormControl('')
+        dateDeNaissance: new FormControl(''),
+        login: new FormControl(''),
+        motdepasse: new FormControl('')
 	});
+
     profileFormErrorMessage = "";
     profileSubmitMessage = "";
     profileSubmitBtnText = "Modifier le profile";
@@ -48,16 +51,24 @@ export class ProfileEmployeComponent implements OnInit {
         this.employeService.fetchEmp(this.user["userId"])
         .subscribe( (response) => {
             this.employe = JSON.parse(JSON.stringify(response));
-            console.log(this.employe);
-            this.profileForm = this.formBuilder.group(
-                {
-                    pdp: [],
-                    nom: [this.employe.nom, [Validators.required]],
-                    prenom: [this.employe.prenom, [Validators.required]],
-                    sexe: [this.employe.sexe, [Validators.required, Validators.required]],
-                    dateDeNaissance: [this.employe.dateDeNaissance.split("T")[0], [Validators.required]]
+
+            this.employeService.getEmpCompte(this.employe._id)
+            .subscribe({
+                next: (response) => {
+                    this.employe.compte = JSON.parse(JSON.stringify(response));
+                    this.profileForm = this.formBuilder.group(
+                        {
+                            pdp: [],
+                            nom: [this.employe.nom, [Validators.required]],
+                            prenom: [this.employe.prenom, [Validators.required]],
+                            sexe: [this.employe.sexe, [Validators.required, Validators.required]],
+                            dateDeNaissance: [this.employe.dateDeNaissance.split("T")[0], [Validators.required]],
+                            login: [this.employe.compte.login, [Validators.required, Validators.required]],
+                            motdepasse: [this.employe.compte.motdepasse, [Validators.required, Validators.required]]
+                        }
+                    );
                 }
-            );
+            });
         })
     }
 
@@ -92,6 +103,8 @@ export class ProfileEmployeComponent implements OnInit {
     }
 
     onProfileFormSubmit(event: any): void {
+        this.profileFormErrorMessage = "";
+        this.profileSubmitMessage = "";
         this.profileSubmitBtnText = "";
         this.submittedProfile = true;
         this.submittingProfile = true;
@@ -102,6 +115,8 @@ export class ProfileEmployeComponent implements OnInit {
             formData.append("prenom",  this.profileForm.get("prenom")!.value);
             formData.append("sexe",  this.profileForm.get("sexe")!.value);
             formData.append("dateDeNaissance",  this.profileForm.get("dateDeNaissance")!.value);
+            formData.append("login",  this.profileForm.get("login")!.value);
+            formData.append("motdepasse",  this.profileForm.get("motdepasse")!.value);
 
             Array.from(event.target[0].files).forEach( (file) => formData.append("photoDeProfil", file));
 

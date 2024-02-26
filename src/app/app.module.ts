@@ -26,6 +26,10 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { ImageService } from './services/images/image.service';
 import { HeaderComponent } from './client/header/header.component';
 import { FooterComponent } from './client/footer/footer.component';
+import { StatistiqueComponent } from './manager/statistique/statistique.component';
+import { ChartsModule } from 'ng2-charts';
+import { ManagerGestionDepenseComponent } from './manager/manager-gestion-depense/manager-gestion-depense.component';
+
 
 @NgModule({
     declarations: [
@@ -46,7 +50,9 @@ import { FooterComponent } from './client/footer/footer.component';
         ManagerGestionServiceComponent,
         AccueilComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        StatistiqueComponent,
+        ManagerGestionDepenseComponent
     ],
     imports: [
         BrowserModule,
@@ -55,7 +61,8 @@ import { FooterComponent } from './client/footer/footer.component';
         ReactiveFormsModule,
         FormsModule,
         HttpClientModule,
-        DragDropModule
+        DragDropModule,
+        ChartsModule
     ],
     providers: [
         {

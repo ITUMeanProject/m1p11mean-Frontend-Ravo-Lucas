@@ -14,16 +14,21 @@ export class ManagerGestionEmployeComponent implements OnInit {
         prenomEmp: '',
         dateDeNaissance: '',
         sexe: '',
+        page: 1
     };
     selectedEmp = {};
     employes: [];
+    currentPage = 1;
+    totalPage = 10;
 
     empForm: FormGroup = new FormGroup({
         photoDeProfil: new FormControl(''),
 		nom: new FormControl(''),
         prenom: new FormControl(''),
 		sexe: new FormControl('Homme'),
-        dateDeNaissance: new FormControl('')
+        dateDeNaissance: new FormControl(''),
+        login: new FormControl(''),
+        motdepasse: new FormControl('')
 	});
 
     deleteMessage = "";
@@ -37,13 +42,7 @@ export class ManagerGestionEmployeComponent implements OnInit {
     constructor(private formBuilder: FormBuilder, private employeService: EmployeService) { }
 
     ngOnInit(): void {
-        this.employeService.fetchEmp()
-        .subscribe({
-            next: (response) => {
-                this.employes = JSON.parse(JSON.stringify(response));
-            },
-            error: (error) => {}
-        })
+        this.findEmp();
     }
 
     addEmp(event){
@@ -58,6 +57,8 @@ export class ManagerGestionEmployeComponent implements OnInit {
             formData.append("prenom",  this.empForm.get("prenom")!.value);
             formData.append("sexe",  this.empForm.get("sexe")!.value);
             formData.append("dateDeNaissance",  this.empForm.get("dateDeNaissance")!.value);
+            formData.append("login",  this.empForm.get("login")!.value);
+            formData.append("motdepasse",  this.empForm.get("motdepasse")!.value);
 
             Array.from(event.target[0].files).forEach( (file) => formData.append("photoDeProfil", file));
 
@@ -91,6 +92,8 @@ export class ManagerGestionEmployeComponent implements OnInit {
             formData.append("prenom",  this.empForm.get("prenom")!.value);
             formData.append("sexe",  this.empForm.get("sexe")!.value);
             formData.append("dateDeNaissance",  this.empForm.get("dateDeNaissance")!.value);
+            formData.append("login",  this.empForm.get("login")!.value);
+            formData.append("motdepasse",  this.empForm.get("motdepasse")!.value);
 
             Array.from(event.target[0].files).forEach( (file) => formData.append("photoDeProfil", file));
 
@@ -112,12 +115,19 @@ export class ManagerGestionEmployeComponent implements OnInit {
         }
     }
 
-    findEmp(){
+    paginate( page = 1 ){
+        this.currentPage = page;
+        this.findEmp(this.currentPage);
+    }
+
+    findEmp( page = 1 ){
+        this.empSearch.page = page ;
         this.employeService.findEmp(this.empSearch)
         .subscribe({
             next: (response) => {
                 var data = JSON.parse(JSON.stringify(response));
-                this.employes = data;
+                this.employes = data.data;
+                this.totalPage = data.totalPage;
             },
             error: (error) => {
                 console.log(error)
@@ -155,19 +165,32 @@ export class ManagerGestionEmployeComponent implements OnInit {
             nom: new FormControl(''),
             prenom: new FormControl(''),
             sexe: new FormControl('Homme'),
-            dateDeNaissance: new FormControl('')
+            dateDeNaissance: new FormControl(''),
+            login: new FormControl(''),
+            motdepasse: new FormControl('')
         });
     }
 
     selectEmp(emp){
         this.resetEmpMessage();
-        this.selectedEmp = emp;
-        this.empForm = new FormGroup({
-            photoDeProfil: new FormControl(''),
-            nom: new FormControl(emp.nom),
-            prenom: new FormControl(emp.prenom),
-            sexe: new FormControl(emp.sexe),
-            dateDeNaissance: new FormControl(emp.dateDeNaissance.split('T')[0])
-        });
+
+        this.employeService.getEmpCompte(emp._id)
+        .subscribe({
+            next: (response) => {
+                this.selectedEmp = emp;
+
+                this.selectedEmp["compte"] = JSON.parse(JSON.stringify(response)) || {};
+                
+                this.empForm = new FormGroup({
+                    photoDeProfil: new FormControl(''),
+                    nom: new FormControl(emp.nom),
+                    prenom: new FormControl(emp.prenom),
+                    sexe: new FormControl(emp.sexe),
+                    dateDeNaissance: new FormControl(emp.dateDeNaissance.split('T')[0]),
+                    login: new FormControl(this.selectedEmp["compte"].login),
+                    motdepasse: new FormControl(this.selectedEmp["compte"].motdepasse)
+                });
+            }
+        })
     }
 }

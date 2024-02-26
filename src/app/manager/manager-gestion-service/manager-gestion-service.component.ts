@@ -14,10 +14,13 @@ export class ManagerGestionServiceComponent implements OnInit {
         duree: '',
         commission: '',
         prixMin: '',
-        prixMax: ''
+        prixMax: '',
+        page: 1
     };
     selectedService = {};
     services: [];
+    currentPage = 1;
+    totalPage = 10;
 
     deleteMessage = "";
     serviceFormSubmitMessage = "";
@@ -37,13 +40,7 @@ export class ManagerGestionServiceComponent implements OnInit {
     constructor(private formBuilder: FormBuilder, private serviceService: ServiceService) { }
 
     ngOnInit(): void {
-        this.serviceService.fetchService()
-        .subscribe({
-            next: (response) => {
-                this.services = JSON.parse(JSON.stringify(response));
-            },
-            error: (error) => {}
-        })
+        this.findService();
     }
 
     addService(event){
@@ -98,13 +95,20 @@ export class ManagerGestionServiceComponent implements OnInit {
         }
     }
 
-    findService(){
+    paginate(page = 1){
+        this.currentPage = page;
+        this.findService(this.currentPage);
+    }
+
+    findService( page = 1){
+        this.serviceSearch.page = page;
         this.serviceService.findService(this.serviceSearch)
         .subscribe({
             next: (response) => {
                 var data = JSON.parse(JSON.stringify(response));
-                this.services = data;
-                console.log(this.services);
+                this.services = data.data;
+                this.totalPage = data.totalPage;
+                console.log(data);
             },
             error: (error) => {
                 console.log(error)

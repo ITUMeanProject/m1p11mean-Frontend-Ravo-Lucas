@@ -16,6 +16,8 @@ import { ManagerAuthGuard } from './guard/manager-auth.guard';
 import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employe/manager-gestion-employe.component';
 import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
 import { AccueilComponent } from './accueil/accueil.component';
+import { StatistiqueComponent } from './manager/statistique/statistique.component';
+import { ManagerGestionDepenseComponent } from './manager/manager-gestion-depense/manager-gestion-depense.component';
 
 const routes : Routes = [
     {path : '', component:AccueilComponent},
@@ -41,8 +43,10 @@ const routes : Routes = [
         path : 'manager',
         canActivate: [ManagerAuthGuard],
         children: [
+            {path : 'statistiques', component:StatistiqueComponent},
             {path : 'gestionemploye', component:ManagerGestionEmployeComponent},
             {path : 'gestionservices', component:ManagerGestionServiceComponent},
+            {path : 'gestiondepenses', component:ManagerGestionDepenseComponent},
         ]
     },
     {path : 'manager/login', component:ManagerLoginComponent},

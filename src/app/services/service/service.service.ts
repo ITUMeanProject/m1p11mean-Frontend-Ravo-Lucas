@@ -15,6 +15,7 @@ export class ServiceService {
         if(filter.commission != '' && filter.commission != undefined) url += `&commission=${filter.commission}`;
         if(filter.prixMin != '' && filter.prixMin != undefined) url += `&prixMin=${filter.prixMin}`;
         if(filter.prixMax != '' && filter.prixMax != undefined) url += `&prixMax=${filter.prixMax}`;
+        if(filter.page != '' && filter.page != undefined) url += `&page=${filter.page}`;
 
         return this.http.get(url);
     }

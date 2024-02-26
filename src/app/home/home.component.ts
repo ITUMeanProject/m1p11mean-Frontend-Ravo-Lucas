@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     heureRendezvous : string = '08:00:00';
     rdvContact : any;
 
+
     constructor(
         private serviceService : ServiceService, 
         private employeService : EmployeService,
@@ -93,5 +94,13 @@ export class HomeComponent implements OnInit {
                 }
             )
         }
+    }
+
+    checkEmploye(employe) {
+        this.employeDispoSelected = employe;
+    }
+
+    checkService(service) {
+        this.selectedService = service;
     }
 }

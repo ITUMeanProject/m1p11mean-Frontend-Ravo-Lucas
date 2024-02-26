@@ -15,12 +15,18 @@ import { ManagerLoginComponent } from './manager/manager-login/manager-login.com
 import { ManagerAuthGuard } from './guard/manager-auth.guard';
 import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employe/manager-gestion-employe.component';
 import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
+import { AccueilComponent } from './accueil/accueil.component';
 
 const routes : Routes = [
-    {path : '', component:LoginComponent},
+    {path : '', component:AccueilComponent},
 
-    {path : 'login', component:LoginComponent},
-    {path : 'inscription', component:InscriptionComponent},
+    {
+        path : 'client',
+        children : [
+            {path : 'login',  component:LoginComponent},
+            {path : 'inscription', component:InscriptionComponent},
+        ]
+    },
     {
         path : 'employe',
         canActivate: [EmpAuthGuard],

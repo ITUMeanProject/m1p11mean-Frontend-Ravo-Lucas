@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@fullcalendar/angular": "^6.1.10",
+    "@syncfusion/ej2-angular-calendars": "^24.2.5",
     "bootstrap": "5.0",
     "bootstrap-icons": "^1.11.3",
     "datetime-picker": "^0.6.0",

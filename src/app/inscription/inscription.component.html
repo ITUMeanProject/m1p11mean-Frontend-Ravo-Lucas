@@ -1,3 +1,4 @@
+<app-header></app-header>
 <section class="vh-100 bg-image">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
@@ -36,7 +37,7 @@
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="formDateNaissance" class="form-control form-control-lg" formControlName="dateDeNaissance"/>
+                                    <input type="date" id="formDateNaissance" class="form-control form-control-lg" formControlName="dateDeNaissance"/>
                                     <label class="form-label" for="formDateNaissance"><strong>Date de naissance</strong></label>
 
                                     <div class="error-message" *ngIf="submitted && getForm['dateDeNaissance'].errors?.['required']">
@@ -91,7 +92,7 @@
                                 </div>
 
                                 <p class="text-center text-muted mt-5 mb-0">Avez-vous déjà un compte? <a
-                                        [routerLink]="['/login']" class="fw-bold text-body"><u>Se connecter ici</u></a>
+                                        [routerLink]="['/client/login']" class="fw-bold text-body"><u>Se connecter ici</u></a>
                                 </p>
                             </form>
                         </div>

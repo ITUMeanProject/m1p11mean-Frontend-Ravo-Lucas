@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['home']);
                 },
                 error: (error) => {
-                    this.errorMessage = error.error.message;
+                    this.errorMessage = error.error.message ?  error.error.message : "Login ou mot de passe incorrect" ;
                 }
             });
             

@@ -1,0 +1,39 @@
+<div id="header-menu">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse menu-navbar" id="navbar-left">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+    
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Accueil</a>
+                    </li>
+                
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Service</a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tarifs</a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex" id="navbar-right">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        
+                        <li class="nav-item">
+                            <a class="nav-link active" [routerLink]="['/client/inscription']">S'inscrire</a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/client/login']">Se connecter</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

@@ -1,120 +1,150 @@
-<div class="vh-100 d-flex justify-content-start align-items-stretch">
-    <app-navbar></app-navbar>
-    <div class="bg-light flex-fill p-5">
-        <div class="bg-white border border-light">
-            <h2>Prise de rendez-vous</h2>
-            <form>
-                <div class="row mb-4">
-                    <label class="form-label col-sm-2" for="form3Example1cg"  ><strong>Nom</strong></label>
-                    <div class="col-sm-10">
-                        <input type="text" id="form3Example1cg" class="form-control col-sm-10" value="{{this.user.user.nom}}" readonly/>
-                    </div>
-                </div>
 
-                <div class="row mb-4">
-                    <label class="form-label col-sm-2" for="form3Example1cg" ><strong>Prenom</strong></label>
-                    <div class="col-sm-10">
-                        <input type="text" id="form3Example1cg" class="form-control col-sm-10" value="{{this.user.user.prenom}}" readonly/>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <label class="form-label col-sm-2" for="form3Example1cg"><strong>Téléphone</strong></label>
-                    <div class="col-sm-10">
-                        <input type="text" id="form3Example1cg" class="form-control col-sm-10" [(ngModel)] = "rdvContact" [ngModelOptions]="{standalone: true}"/>
-                    </div>
-                </div>
-
-                <div>
-                    <h2>Selectionner le service que vous voulez</h2>
-                    <div class="row mb-4">
-                        <div class="col-sm-2">
-
-                        </div>
-
+<app-header></app-header>
+<div class="container">
+    <div class="vh-100 d-flex justify-content-start align-items-stretch">
+        <div class="flex-fill p-5">
+            <div class="bg-white border border-light">
+                <h2 class="text-center">Prise de rendez-vous</h2>
+                <form>
+                    <div class="row mb-3 ms-5">
+                        <label class="form-label col-sm-1" for="form3Example1cg"><strong>Nom</strong></label>
                         <div class="col-sm-10">
-                            <div *ngFor="let service of serviceList">
-                                <label>
-                                    <input type="radio" name="service" [(ngModel)]="selectedService" [value]="service" />
-                                    {{ service.nom }}
-                                </label>
+                            <input type="text" id="form3Example1cg" class="form-control col-sm-10"
+                                value="{{this.user.user.nom}}" readonly />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 ms-5">
+                        <label class="form-label col-sm-1" for="form3Example1cg"><strong>Prenom</strong></label>
+                        <div class="col-sm-10">
+                            <input type="text" id="form3Example1cg" class="form-control col-sm-10"
+                                value="{{this.user.user.prenom}}" readonly />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 ms-5">
+                        <label class="form-label col-sm-1" for="form3Example1cg"><strong>Téléphone</strong></label>
+                        <div class="col-sm-10">
+                            <input type="text" id="form3Example1cg" class="form-control col-sm-10"
+                                [(ngModel)]="rdvContact" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-center">Selectionner le service que vous voulez</h2>
+                        <div class="row mb-4">
+                            <div class="offset-sm-1 col-sm-11">
+                                <div class="list-group">
+                                    <div class="list-group-item list-group-item-action"
+                                        [ngClass]="{'p-3 mb-2 bg-warning text-dark': selectedService == service}"
+                                        *ngFor="let service of serviceList" (click)="checkService(service)">
+                                        <div class="col-sm-10">
+                                            {{ service.nom }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div *ngIf="selectedService" class="row mb-4">
-                    <div class="col-sm-2">
 
-                    </div>
-                    <div class="col-sm-3">
-                        <fieldset>
-                            <legend></legend>
+
+                    <div *ngIf="selectedService" class="row mb-4">
+
+                        <div class="offset-sm-1 col-sm-11  text-center">
+                            <div class="alert alert-primary" role="alert">
+                                <span class="p-4">Prix : {{selectedService.prix}} €</span>
+                                <span>Durée : {{selectedService.duree}} h</span>
+                            </div>
+                        </div>
+
+
+                        <!--
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <label>Prix</label>: {{selectedService.prix}} €
+                                <div class="row col-sm-6">
+                                    <label class="form-label col-sm-4" for="form3Example1cg"><strong>Date: </strong></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="form3Example1cg" class="form-control col-sm-10"
+                                            [(ngModel)]="dateRendezvous" [value]="dateRendezvous"
+                                            [ngModelOptions]="{standalone: true}" />
+                                    </div>
                                 </div>
-                                
-                                <div class="col-sm-6">
-                                    <label>Durée</label>: {{selectedService.duree}} h
+    
+                                <div class="row col-sm-6">
+                                    <label class="form-label col-sm-4" for="form3Example1cg"><strong>Heure:
+                                        </strong></label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="form3Example1cg" class="form-control col-sm-10"
+                                            [(ngModel)]="heureRendezvous" [value]="heureRendezvous"
+                                            [ngModelOptions]="{standalone: true}" />
+                                    </div>
                                 </div>
                             </div>
-                         </fieldset>   
-                    </div>
 
-                    <div class="col-sm-7">
-                        <div class="row">
-                            <div class="row col-sm-6">
-                                <label class="form-label col-sm-4" for="form3Example1cg"><strong>Date: </strong></label>
-                                <div class="col-sm-8">
-                                    <input type="text" id="form3Example1cg" class="form-control col-sm-10" [(ngModel)]="dateRendezvous" [value]="dateRendezvous" [ngModelOptions]="{standalone: true}"/>
+                            -->
+                        <div>
+                            <div class="row mb-4">
+
+                                <div class="ms-5 col-sm-5 row">
+                                    <h2 class="text-center">Date de rendez-vous</h2>
+                                    <div class="row col-sm-6">
+                                        <label class="form-label col-sm-3" for="form3Example1cg"><strong>Date: </strong></label>
+                                        <div class="col-sm-9">
+                                            <input type="date" id="form3Example1cg" class="form-control col-sm-10"
+                                                [(ngModel)]="dateRendezvous" [value]="dateRendezvous"
+                                                [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
+        
+                                    <div class="row col-sm-6">
+                                        
+                                        <label class="form-label col-sm-3" for="form3Example1cg"><strong>Heure:
+                                            </strong></label>
+                                        <div class="col-sm-9">
+                                            <input type="time" id="form3Example1cg" class="form-control col-sm-10"
+                                                [(ngModel)]="heureRendezvous" [value]="heureRendezvous"
+                                                [ngModelOptions]="{standalone: true}" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <div class="row col-sm-6">
-                                <label class="form-label col-sm-4" for="form3Example1cg"><strong>Heure: </strong></label>
-                                <div class="col-sm-8">
-                                    <input type="text" id="form3Example1cg" class="form-control col-sm-10" [(ngModel)]="heureRendezvous" [value]="heureRendezvous" [ngModelOptions]="{standalone: true}"/>
+
+                                <div class=" col-sm-6">
+                                    <h2 class="text-center">Choisissez un résponsable</h2>
+
+                                    <div class="list-group">
+                                        <div class="list-group-item list-group-item-action"
+                                            [ngClass]="{'bg-success text-white': employeDispoSelected == employe}"
+                                            *ngFor="let employe of employeDispo" (click)="checkEmploye(employe)">
+                                            <div class="col-sm-10">
+                                                {{employe.nom}} {{employe.prenom}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="mt-3">
-                            <div class="col-sm-12 row"> 
-                                <label class="form-label col-sm-3" for="form3Example1cg"><strong>Choisir le responsable: </strong></label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" [(ngModel)]="employeDispoSelected" [ngModelOptions]="{standalone: true}" >
-                                        <option></option>
-                                        <option *ngFor="let employe of employeDispo" [ngValue]="employe">{{employe.nom}} {{employe.prenom}}</option>
-                                    </select>
-                                </div>
-                            </div>
+                    <div class="row mb-4">
+                        <label class="form-label col-sm-2" for="form3Example1cg"><strong>Commentaire</strong></label>
+                        <div class="col-sm-10 row">
+                            <textarea rows="5">
+
+                            </textarea>
                         </div>
                     </div>
 
-                    
-                </div>
-                
-                
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                            (click)="enregistrerRendezvous()">Enregistrer</button>
 
-                <div class="row mb-4">
-                    <label class="form-label col-sm-2" for="form3Example1cg"><strong>Commentaire</strong></label>
-                    <div class="col-sm-10 row">
-                        <textarea rows="5">
-
-                        </textarea>
+                        <button type="submit"
+                            class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Annuler</button>
                     </div>
-                </div>
 
-                <div class="d-flex justify-content-center">
-                    <button type="submit"
-                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" (click)="enregistrerRendezvous()">Enregistrer</button>
-
-                    <button type="submit"
-                        class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Annuler</button>
-                </div>
-
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+<app-footer></app-footer>

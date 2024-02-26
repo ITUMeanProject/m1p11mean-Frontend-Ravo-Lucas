@@ -22,6 +22,10 @@ import { HeaderInterceptor } from './interceptor/header.interceptor';
 import { ManagerLoginComponent } from './manager/manager-login/manager-login.component';
 import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employe/manager-gestion-employe.component';
 import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
+import { AccueilComponent } from './accueil/accueil.component';
+import { ImageService } from './services/images/image.service';
+import { HeaderComponent } from './client/header/header.component';
+import { FooterComponent } from './client/footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +43,10 @@ import { ManagerGestionServiceComponent } from './manager/manager-gestion-servic
         LoginEmployeComponent,
         ManagerLoginComponent,
         ManagerGestionEmployeComponent,
-        ManagerGestionServiceComponent
+        ManagerGestionServiceComponent,
+        AccueilComponent,
+        HeaderComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,
@@ -53,7 +60,8 @@ import { ManagerGestionServiceComponent } from './manager/manager-gestion-servic
     providers: [
         {
             provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true
-        }
+        },
+        [ImageService]
     ],
     bootstrap: [AppComponent]
 })

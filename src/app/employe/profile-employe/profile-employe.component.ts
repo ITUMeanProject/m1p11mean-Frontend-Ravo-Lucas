@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { EmployeService } from 'src/app/services/employe/employe.service';
 import { HoraireDeTravailService } from 'src/app/services/employe/horaire-de-travail.service';
 import { UserService } from 'src/app/services/user.service';
+import Envs from 'src/app/utils/Envs';
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +14,7 @@ export class ProfileEmployeComponent implements OnInit {
     employe: any;
     horaire: any;
     user = {};
+    baseUrl: any;
 
     profileForm: FormGroup = new FormGroup({
 		pdp: new FormControl(''),
@@ -82,6 +84,7 @@ export class ProfileEmployeComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.baseUrl = Envs.API_BASEURL;
         this.user = this.userService.getUser();
         this.getEmploye();
         this.getHoraire();

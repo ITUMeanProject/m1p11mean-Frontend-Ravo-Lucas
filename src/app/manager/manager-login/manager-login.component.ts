@@ -11,8 +11,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ManagerLoginComponent implements OnInit {
     submitted: boolean = false;
-    errorMessage: string = '';1
+    errorMessage: string = '';
     loginForm: FormGroup;
+    loginBtn: String = "Se connecter";
+    loginIn: boolean;
 
     constructor(
         private fb: FormBuilder, 
@@ -42,7 +44,8 @@ export class ManagerLoginComponent implements OnInit {
     }
 
     connect() {
-        console.log(this.loginForm.value);
+        this.loginBtn = "";
+        this.loginIn = true;
         this.managerService.login(this.loginForm.value)
         .subscribe({
             next: (response) => {
@@ -50,9 +53,15 @@ export class ManagerLoginComponent implements OnInit {
                 console.log(res);
                 this.userService.setUserToken(res.token.value, res.token.expires);
                 this.router.navigate(['manager/gestionemploye']);
+
+                this.loginIn = false;
+                this.loginBtn = "Se connecter";
             },
             error: (error) => {
+                console.log(error);
                 this.errorMessage = error.error.message;
+                this.loginIn = false;
+                this.loginBtn = "Se connecter";
             }
         });
     }

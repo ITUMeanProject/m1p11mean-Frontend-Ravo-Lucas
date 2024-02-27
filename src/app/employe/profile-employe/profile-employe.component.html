@@ -1,243 +1,252 @@
 <div class="vh-100 d-flex justify-content-start align-items-stretch">
     <app-navbar></app-navbar>
 
-    <div class="bg-light flex-fill p-5">
-        <div class="d-flex justify-content-start align-items-stretch bg-white p-4" *ngIf="this.employe">
-            <img src="http://127.0.0.1:3000/static/uploads/employes/{{ this.employe.photoDeProfil }}" class="align-self-start mr-3" alt="" style="height: 125px; width: 125px;">
-            <div class="px-4">
-                <p class="fw-bold">
-                    <span style="font-size: 45px;">
-                        {{this.employe.nom}} {{this.employe.prenom}}
-                    </span>
-                    <br>
-                    <span class="text-muted">né le {{this.employe.dateDeNaissance | date: 'd MMM y '}}</span>
-                    <br>
-                    <span class="text-muted">{{this.employe.sexe}}</span>
-                </p>
+    <div class="bg-light flex-fill overflow-auto">
+        <div class="bg-muted py-5">
+            <div style="padding: 0 5px!important;">
+                <div class="row bg-white p-2" *ngIf="this.employe">
+                    <div class="col-md-2">
+                        <img src="{{ baseUrl }}static/uploads/employes/{{ this.employe.photoDeProfil }}" class="align-self-center" alt="" style="height: 125px; width: 125px;">
+                    </div>
+                    <div class="col-md-10">
+                        <p class="fw-bold">
+                            <span style="font-size: 45px;">
+                                {{this.employe.nom}} {{this.employe.prenom}}
+                            </span>
+                            <br>
+                            <span class="text-muted">né le {{this.employe.dateDeNaissance | date: 'd MMM y '}}</span>
+                            <br>
+                            <span class="text-muted">{{this.employe.sexe}}</span>
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="bg-white border border-light my-4">
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-editprofile-tab" data-bs-toggle="tab" data-bs-target="#nav-editprofile" type="button" role="tab" aria-controls="nav-editprofile" aria-selected="true">Modifier le profil</button>
+            
+            <div class="my-3 px-2">
+                <div class="bg-white border border-light my-4">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link col-6 active " id="nav-editprofile-tab" data-bs-toggle="tab" data-bs-target="#nav-editprofile" type="button" role="tab" aria-controls="nav-editprofile" aria-selected="true">Modifier le profil</button>
 
-                    <button class="nav-link" id="nav-horaire-tab" data-bs-toggle="tab" data-bs-target="#nav-horaire" type="button" role="tab" aria-controls="nav-horaire" aria-selected="false">Horaire de travail</button>
-                </div>
-            </nav>
-            <div class="tab-content p-4" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-editprofile" role="tabpanel" aria-labelledby="nav-editprofile-tab">
-                    <div id="form-card">    
-                        <form [formGroup]="profileForm" (ngSubmit)="onProfileFormSubmit($event)">
-                            <div class="form-group"  *ngIf='this.profileFormErrorMessage != ""'>
-                                <div class="form-control alert alert-danger">
-                                    <div>{{this.profileFormErrorMessage}}</div>
-                                </div>
-                            </div>
-                            <div class="form-group"  *ngIf='this.profileSubmitMessage != ""'>
-                                <div class="form-control alert alert-success">
-                                    <div>{{this.profileSubmitMessage}}</div>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <div class="flex-fill me-2">
-                                    <div class="form-group">
-                                        <label for="pdp">Photo</label>
-                                        <input 
-                                            type="file" 
-                                            class="form-control" 
-                                            id="pdp"
-                                            aria-describedby="pdp"
-                                            formControlName="pdp"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nom">Nom</label>
-                                        <input 
-                                            type="text" 
-                                            class="form-control" 
-                                            id="nom"
-                                            aria-describedby="nom"
-                                            formControlName="nom"
-                                            [ngClass]="{ 'is-invalid': submittedProfile && f['nom'].errors }"
-                                        />
-                                        <div *ngIf="submittedProfile && f['nom'].errors" class="invalid-feedback">
-                                            <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
+                            <button class="nav-link col-6" id="nav-horaire-tab" data-bs-toggle="tab" data-bs-target="#nav-horaire" type="button" role="tab" aria-controls="nav-horaire" aria-selected="false">Horaire de travail</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content p-4" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-editprofile" role="tabpanel" aria-labelledby="nav-editprofile-tab">
+                            <div id="form-card">    
+                                <form [formGroup]="profileForm" (ngSubmit)="onProfileFormSubmit($event)">
+                                    <div class="form-group"  *ngIf='this.profileFormErrorMessage != ""'>
+                                        <div class="form-control alert alert-danger">
+                                            <div>{{this.profileFormErrorMessage}}</div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="prenom">Prenom</label>
-                                        <input 
-                                            type="text"
-                                            class="form-control"
-                                            id="prenom"
-                                            aria-describedby="prenom"
-                                            formControlName="prenom"
-                                            [ngClass]="{ 'is-invalid': submittedProfile && f['prenom'].errors }"
-                                        />
-                                        <div *ngIf="submittedProfile && f['prenom'].errors" class="invalid-feedback">
-                                            <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
+                                    <div class="form-group"  *ngIf='this.profileSubmitMessage != ""'>
+                                        <div class="form-control alert alert-success">
+                                            <div>{{this.profileSubmitMessage}}</div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="sexe">Sexe</label>
-                                        <select 
-                                            type="sexe"
-                                            class="form-control"
-                                            id="sexe"
-                                            aria-describedby="sexe"
-                                            formControlName="sexe"
-                                            [ngClass]="{ 'is-invalid': submittedProfile && f['sexe'].errors }"
-                                        >
-                                            <option value="Homme">Homme</option>
-                                            <option value="Femme">Femme</option>
-                                        </select>
-                                        <div *ngIf="submittedProfile && f['sexe'].errors" class="invalid-feedback">
-                                            <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="dateDeNaissance">Date de naissance</label>
-                                        <input
-                                            type="date"
-                                            class="form-control"
-                                            id="dateDeNaissance"
-                                            aria-describedby="dateDeNaissance"
-                                            formControlName="dateDeNaissance"
-                                            [ngClass]="{ 'is-invalid': submittedProfile && f['dateDeNaissance'].errors }"
-                                        />
-                                        <div *ngIf="submittedProfile && f['dateDeNaissance'].errors" class="invalid-feedback">
-                                            <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-fill">
-                                    <div class="form-group">
-                                        <label for="login">Login</label>
-                                        <input 
-                                            type="text" 
-                                            class="form-control" 
-                                            id="login"
-                                            aria-describedby="login"
-                                            formControlName="login"
-                                            [ngClass]="{ 'is-invalid': submittedProfile && f['login'].errors }"
-                                        />
-                                        <div *ngIf="submittedProfile && f['login'].errors" class="invalid-feedback">
-                                            <div *ngIf="f['login'].errors['required']">Login requis</div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="motdepasse">Mot de passe</label>
-                                        <input 
-                                            type="password" 
-                                            class="form-control" 
-                                            id="motdepasse"
-                                            aria-describedby="motdepasse"
-                                            formControlName="motdepasse"
-                                            [ngClass]="{ 'is-invalid': submittedProfile && f['motdepasse'].errors }"
-                                        />
-                                        <div *ngIf="submittedProfile && f['motdepasse'].errors" class="invalid-feedback">
-                                            <div *ngIf="f['motdepasse'].errors['required']">Mot de passe requis</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="form-group mt-2">
-                                <button 
-                                    type="submit" 
-                                    class="btn w-100"
-                                    [ngClass]="{ 'btn-primary': !submittingProfile, 'btn-success': submittingProfile}"
-                                >
-                                    <div class="spinner-border" role="status" *ngIf="this.submittingProfile">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                    {{ this.profileSubmitBtnText }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="tab-pane fade bg-muted" id="nav-horaire" role="tabpanel" aria-labelledby="nav-horaire-tab">
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            Ajouter nouvel horaire
-                        </button>
-                          
-                          <!-- Modal -->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="staticBackdropLabel">Nouvel Horaire</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form [formGroup]="horaireForm" (ngSubmit)="onHoraireSubmit($event)">
-                                        <div class="form-group"  *ngIf='this.horaireFormErrorMessage != ""'>
-                                            <div class="form-control alert alert-danger">
-                                                <div>{{this.horaireFormErrorMessage}}</div>
+                                    <div class="d-flex">
+                                        <div class="flex-fill me-2">
+                                            <div class="form-group">
+                                                <label for="pdp">Photo</label>
+                                                <input 
+                                                    type="file" 
+                                                    class="form-control" 
+                                                    id="pdp"
+                                                    aria-describedby="pdp"
+                                                    formControlName="pdp"
+                                                />
                                             </div>
-                                        </div>
-                                        <div class="form-group"  *ngIf='this.horaireSubmitMessage != ""'>
-                                            <div class="form-control alert alert-success">
-                                                <div>{{this.horaireSubmitMessage}}</div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="date">Date</label>
-                                            <input
-                                                type="date"
-                                                class="form-control"
-                                                id="date"
-                                                aria-describedby="date"
-                                                formControlName="date"
-                                            />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="heure_debut">Heure debut</label>
-                                            <input
-                                                type="time"
-                                                class="form-control"
-                                                id="heure_debut"
-                                                aria-describedby="heure_debut"
-                                                formControlName="heure_debut"
-                                            />
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="heure_fin">Heure fin</label>
-                                            <input
-                                                type="time"
-                                                class="form-control"
-                                                id="heure_fin"
-                                                aria-describedby="heure_fin"
-                                                formControlName="heure_fin"
-                                            />
-                                        </div>
-                                        <div class="form-group mt-2">
-                                            <button 
-                                                type="submit" 
-                                                class="btn w-100"
-                                                [ngClass]="{ 'btn-primary': !submittingHoraire, 'btn-success': submittingHoraire}"
-                                            >
-                                                <div class="spinner-border" role="status" *ngIf="this.submittingHoraire">
-                                                    <span class="visually-hidden">Loading...</span>
+                                            <div class="form-group">
+                                                <label for="nom">Nom</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="nom"
+                                                    aria-describedby="nom"
+                                                    formControlName="nom"
+                                                    [ngClass]="{ 'is-invalid': submittedProfile && f['nom'].errors }"
+                                                />
+                                                <div *ngIf="submittedProfile && f['nom'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['nom'].errors['required']">Prenom requis</div>
                                                 </div>
-                                                {{ this.horaireSubmitBtnText }}
-                                            </button>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="prenom">Prenom</label>
+                                                <input 
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="prenom"
+                                                    aria-describedby="prenom"
+                                                    formControlName="prenom"
+                                                    [ngClass]="{ 'is-invalid': submittedProfile && f['prenom'].errors }"
+                                                />
+                                                <div *ngIf="submittedProfile && f['prenom'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['prenom'].errors['required']">Nom requis</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sexe">Sexe</label>
+                                                <select 
+                                                    type="sexe"
+                                                    class="form-control"
+                                                    id="sexe"
+                                                    aria-describedby="sexe"
+                                                    formControlName="sexe"
+                                                    [ngClass]="{ 'is-invalid': submittedProfile && f['sexe'].errors }"
+                                                >
+                                                    <option value="Homme">Homme</option>
+                                                    <option value="Femme">Femme</option>
+                                                </select>
+                                                <div *ngIf="submittedProfile && f['sexe'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['sexe'].errors['required']">Sexe requis</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dateDeNaissance">Date de naissance</label>
+                                                <input
+                                                    type="date"
+                                                    class="form-control"
+                                                    id="dateDeNaissance"
+                                                    aria-describedby="dateDeNaissance"
+                                                    formControlName="dateDeNaissance"
+                                                    [ngClass]="{ 'is-invalid': submittedProfile && f['dateDeNaissance'].errors }"
+                                                />
+                                                <div *ngIf="submittedProfile && f['dateDeNaissance'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['dateDeNaissance'].errors['required']">Date de naissance requis</div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
+                                        <div class="flex-fill">
+                                            <div class="form-group">
+                                                <label for="login">Login</label>
+                                                <input 
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    id="login"
+                                                    aria-describedby="login"
+                                                    formControlName="login"
+                                                    [ngClass]="{ 'is-invalid': submittedProfile && f['login'].errors }"
+                                                />
+                                                <div *ngIf="submittedProfile && f['login'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['login'].errors['required']">Login requis</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="motdepasse">Mot de passe</label>
+                                                <input 
+                                                    type="password" 
+                                                    class="form-control" 
+                                                    id="motdepasse"
+                                                    aria-describedby="motdepasse"
+                                                    formControlName="motdepasse"
+                                                    [ngClass]="{ 'is-invalid': submittedProfile && f['motdepasse'].errors }"
+                                                />
+                                                <div *ngIf="submittedProfile && f['motdepasse'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['motdepasse'].errors['required']">Mot de passe requis</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <button 
+                                            type="submit" 
+                                            class="btn w-100"
+                                            [ngClass]="{ 'btn-primary': !submittingProfile, 'btn-success': submittingProfile}"
+                                        >
+                                            <div class="spinner-border" role="status" *ngIf="this.submittingProfile">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            {{ this.profileSubmitBtnText }}
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        </div>
-                    </div>
-                    <div *ngIf="this.horaire">
-                        <div *ngFor="let hr of this.horaire" class="fw-bold card px-4 pt-2">
-                            <p>
-                                <span>Aujourd'hui</span>
-                                <br>
-                                <span class="text-muted">{{ hr.heure_debut }} à {{ hr.heure_fin }}</span>
-                            </p>
+                        <div class="tab-pane fade bg-muted" id="nav-horaire" role="tabpanel" aria-labelledby="nav-horaire-tab">
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    Ajouter nouvel horaire
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Nouvel Horaire</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form [formGroup]="horaireForm" (ngSubmit)="onHoraireSubmit($event)">
+                                                <div class="form-group"  *ngIf='this.horaireFormErrorMessage != ""'>
+                                                    <div class="form-control alert alert-danger">
+                                                        <div>{{this.horaireFormErrorMessage}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group"  *ngIf='this.horaireSubmitMessage != ""'>
+                                                    <div class="form-control alert alert-success">
+                                                        <div>{{this.horaireSubmitMessage}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="date">Date</label>
+                                                    <input
+                                                        type="date"
+                                                        class="form-control"
+                                                        id="date"
+                                                        aria-describedby="date"
+                                                        formControlName="date"
+                                                    />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="heure_debut">Heure debut</label>
+                                                    <input
+                                                        type="time"
+                                                        class="form-control"
+                                                        id="heure_debut"
+                                                        aria-describedby="heure_debut"
+                                                        formControlName="heure_debut"
+                                                    />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="heure_fin">Heure fin</label>
+                                                    <input
+                                                        type="time"
+                                                        class="form-control"
+                                                        id="heure_fin"
+                                                        aria-describedby="heure_fin"
+                                                        formControlName="heure_fin"
+                                                    />
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <button 
+                                                        type="submit" 
+                                                        class="btn w-100"
+                                                        [ngClass]="{ 'btn-primary': !submittingHoraire, 'btn-success': submittingHoraire}"
+                                                    >
+                                                        <div class="spinner-border" role="status" *ngIf="this.submittingHoraire">
+                                                            <span class="visually-hidden">Loading...</span>
+                                                        </div>
+                                                        {{ this.horaireSubmitBtnText }}
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div *ngIf="this.horaire">
+                                <div *ngFor="let hr of this.horaire" class="fw-bold card px-4 pt-2">
+                                    <p>
+                                        <span>Aujourd'hui</span>
+                                        <br>
+                                        <span class="text-muted">{{ hr.heure_debut }} à {{ hr.heure_fin }}</span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

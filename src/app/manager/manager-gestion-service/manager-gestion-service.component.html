@@ -2,75 +2,81 @@
     <app-navbar></app-navbar>
 
     <div class="bg-light flex-fill overflow-auto">
-        <div class="bg-white border border-light py-5">
+        <div class="bg-muted py-5">
             <div class="px-2">
-                <h1>Service</h1>
-                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutEmp" (click)="resetEmpForm()">
-                        Ajouter nouveau service
-                </button>
-                <div class="py-2">
-                    <form (ngSubmit)="findService()">
-                        <div class="row">
-                            <div class="col">
-                                <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.nom" name="nom" type="text" placeholder="Nom client" aria-label="Nom client">
+                <div class="bg-white border border-light p-2">
+                    <h1>Service</h1>
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutEmp" (click)="resetEmpForm()">
+                            Ajouter nouveau service
+                    </button>
+                    <div class="py-2">
+                        <form (ngSubmit)="findService()">
+                            <div class="row">
+                                <div class="col-6 mb-1">
+                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.nom" name="nom" type="text" placeholder="Nom client" aria-label="Nom client">
+                                </div>
+                                <div class="col-6 mb-1">
+                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.duree" name="duree" type="number" placeholder="Duree" aria-label="Date">
+                                </div>
+                                <div class="col-6 mb-1">
+                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.commission" name="commission" type="number" placeholder="Commission" aria-label="Date">
+                                </div>
+                                <div class="col-6 mb-1">
+                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.prixMin" name="prixMin" type="number" placeholder="Prix min" aria-label="Date">
+                                </div>
+                                <div class="col-6 mb-1">
+                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.prixMax" name="prixMax" type="number" placeholder="Prix min" aria-label="Date">
+                                </div>
+                                <div class="col-6 mb-1">
+                                    <input class="col-2 form-control btn-sm btn btn-primary" type="submit" value="Rechercher" aria-label="Rechercher">
+                                </div>
                             </div>
-                            <div class="col">
-                                <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.duree" name="duree" type="number" placeholder="Duree" aria-label="Date">
-                            </div>
-                            <div class="col">
-                                <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.commission" name="commission" type="number" placeholder="Commission" aria-label="Date">
-                            </div>
-                            <div class="col">
-                                <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.prixMin" name="prixMin" type="number" placeholder="Prix min" aria-label="Date">
-                            </div>
-                            <div class="col">
-                                <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.prixMax" name="prixMax" type="number" placeholder="Prix min" aria-label="Date">
-                            </div>
-                            <div class="col">
-                                <input class="col-2 form-control btn-sm btn btn-primary" type="submit" value="Rechercher" aria-label="Rechercher">
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Duree</th>
-                        <th>Prix</th>
-                        <th>Commission</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let service of services">
-                        <td>
-                            {{service.nom}}
-                        </td>
-                        <td>{{service.duree}}</td>
-                        <td>{{service.prix | number}}</td>
-                        <td>{{service.commission | number}}</td>
-                        <td class="d-flex">
-                            <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#editEmp" (click)="selectService(service)">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-sm btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteEmp" (click)="selectService(service)">
-                                <i class="bi bi-trash3-fill"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="px-2">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link">Page:</a></li>
-                        <li class="page-item"><a class="page-link" role="button" *ngIf="currentPage - 1 > 0" (click)="paginate(currentPage-1)">{{currentPage - 1}}</a></li>
-                        <li class="page-item active"><a class="page-link" role="button" (click)="paginate(currentPage)">{{currentPage}}</a></li>
-                        <li class="page-item"><a class="page-link" role="button" *ngIf="currentPage + 1 <= totalPage" (click)="paginate(currentPage+1)">{{currentPage + 1}}</a></li>
-                    </ul>
-                </nav>
+            <div class="my-3 px-2">
+                <div class="bg-white border border-light p-2 overflow-scroll">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Duree</th>
+                                <th>Prix</th>
+                                <th>Commission</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let service of services">
+                                <td>
+                                    {{service.nom}}
+                                </td>
+                                <td>{{service.duree}}</td>
+                                <td>{{service.prix | number}}</td>
+                                <td>{{service.commission | number}}</td>
+                                <td class="d-flex">
+                                    <button type="button" class="btn btn-sm btn-primary me-2" data-bs-toggle="modal" data-bs-target="#editEmp" (click)="selectService(service)">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteEmp" (click)="selectService(service)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link">Page:</a></li>
+                                <li class="page-item"><a class="page-link" role="button" *ngIf="currentPage - 1 > 0" (click)="paginate(currentPage-1)">{{currentPage - 1}}</a></li>
+                                <li class="page-item active"><a class="page-link" role="button" (click)="paginate(currentPage)">{{currentPage}}</a></li>
+                                <li class="page-item"><a class="page-link" role="button" *ngIf="currentPage + 1 <= totalPage" (click)="paginate(currentPage+1)">{{currentPage + 1}}</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

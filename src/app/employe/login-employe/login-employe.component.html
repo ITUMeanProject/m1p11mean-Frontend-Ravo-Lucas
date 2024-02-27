@@ -28,10 +28,18 @@
 
                                 <div class="d-flex justify-content-center">
                                     <button type="submit"
-                                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Se
-                                        connecter</button>
+                                        class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
+                                        
+                                        <div class="spinner-border" role="status" *ngIf="this.loginIn">
+                                            <span class="visually-hidden">Connexion...</span>
+                                        </div>
+                                        {{ this.loginBtn }}
+                                    </button>
                                 </div>
 
+                                <div class="text-center mt-5 pt-2">
+                                    Se connecter en tant que <a href="/manager/login">manager</a> ?
+                                </div>
                             </form>
                         </div>
                     </div>

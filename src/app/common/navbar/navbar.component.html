@@ -1,27 +1,172 @@
-<div class="vh-100 bg-white p-5 border border-light d-flex flex-column justify-content-between ">
-    <div class="fw-bold">
-        <h3>{{this.user.user.nom}}</h3>
-        <p class="text-muted">{{this.user.typeUser}}</p>
-    </div>
-    <div *ngIf="this.user.typeUser == 'Employe'" class="flex-fill">
-        <ul class="fw-bold">
-            <li><a href="/employe/profile">Profile</a></li>
-            <li><a href="/employe/rendezvous">Rendez-vous</a></li>
-            <li><a href="/employe/suividetache">Suivi des tâches</a></li>
+<div class="d-none d-sm-block d-flex flex-column justify-content-between">
+    <div class="sidebar {{ openSidebar }} vh-100 d-flex flex-column justify-content-between">
+        <div class="logo-details">
+            <div class="logo_name">Salon de beauté</div>
+            <a role="button"  id="btn" (click)="togglenav()">
+                <i class="bi bi-list fw-bold"></i>
+            </a>
+        </div>
+        <div class="flex-fill">
+            <li>
+                <a role="button">
+                    <i class="bi bi-people-fill"></i>
+                    <span class="links_name">
+                        <h3>{{this.user.user.nom}}</h3>
+                        <p class="text-muted">{{this.user.typeUser}}</p>
+                    </span>
+                </a>
+                <span class="tooltip">{{this.user.user.nom}}</span>
+            </li>
+        </div>
+        <ul class="nav-list flex-fill">
+            <div *ngIf="this.user.typeUser == 'Employe'" class="flex-fill">
+                <li>
+                    <a href="/employe/profile">
+                        <i class="bi bi-people-fill"></i>
+                        <span class="links_name">User</span>
+                    </a>
+                    <span class="tooltip">User</span>
+                </li>
+                <li>
+                    <a href="/employe/rendezvous">
+                        <i class="bi bi-book-fill"></i>
+                        <span class="links_name">Rendez-vous</span>
+                    </a>
+                    <span class="tooltip">Rendez-vous</span>
+                </li>
+                <li>
+                    <a href="/employe/suividetache">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span class="links_name">Suivi des tâches</span>
+                    </a>
+                    <span class="tooltip">Suivi des tâches</span>
+                </li>
+            </div>
+            <div *ngIf="this.user.typeUser == 'Manager'" class="flex-fill">
+                <!-- <li><a href="/manager/profile"><i class="bi bi-person-circle"></i> Profile</a></li> -->
+                <li>
+                    <a href="/manager/statistiques">
+                        <i class="bi bi-bar-chart-fill"></i>
+                        <span class="links_name">Statistiques</span>
+                    </a>
+                    <span class="tooltip">Statistiques</span>
+                </li>
+                <li>
+                    <a href="/manager/gestionemploye">
+                        <i class="bi bi-person-fill"></i>
+                        <span class="links_name">Employés</span>
+                    </a>
+                    <span class="tooltip">Employés</span>
+                </li>
+                <li>
+                    <a href="/manager/gestionservices">
+                        <i class="bi bi-people-fill"></i>
+                        <span class="links_name">Services</span>
+                    </a>
+                    <span class="tooltip">Services</span>
+                </li>
+                <li>
+                    <a href="/manager/gestiondepenses">
+                        <i class="bi bi-wallet-fill"></i>
+                        <span class="links_name">Dépenses</span>
+                    </a>
+                    <span class="tooltip">Dépenses</span>
+                </li>
+            </div>
         </ul>
-    </div>
-    <div *ngIf="this.user.typeUser == 'Manager'" class="flex-fill">
-        <ul class="fw-bold">
-            <li><a href="/manager/profile">Profile</a></li>
-            <li><a href="/manager/statistiques">Statistiques</a></li>
-            <li><a href="/manager/gestionemploye">Employés</a></li>
-            <li><a href="/manager/gestionservices">Services</a></li>
-            <li><a href="/manager/gestiondepenses">Dépenses</a></li>
-        </ul>
-    </div>
-    <div>
-        <ul class="fw-bold">
-            <li><a role="button" (click)="logOut()">Se déconnecter</a></li>
-        </ul>
+        <div class="flex-fill">
+            <li>
+                <a role="button" (click)="logOut()">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span class="links_name">Se déconnecter</span>
+                </a>
+                <span class="tooltip">Se deconnecter</span>
+            </li>
+        </div>
     </div>
 </div>
+
+<nav class="d-block d-sm-none p-3 navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <div class="">
+                <li>
+                    <a role="button">
+                        <i class="bi bi-people-fill"></i>
+                        <span class="links_name">
+                            <h3 class="text-white">{{this.user.user.nom}}</h3>
+                            <p class="text-muted">{{this.user.typeUser}}</p>
+                        </span>
+                    </a>
+                    <span class="tooltip">{{this.user.user.nom}}</span>
+                </li>
+            </div>
+            <ul class="nav-list">
+                <div *ngIf="this.user.typeUser == 'Employe'">
+                    <li>
+                        <a href="/employe/profile">
+                            <i class="bi bi-people-fill"></i>
+                            <span class="links_name">&nbsp; Profile</span>
+                        </a>
+                        <span class="tooltip">Profile</span>
+                    </li>
+                    <li>
+                        <a href="/employe/rendezvous">
+                            <i class="bi bi-book-fill"></i>
+                            <span class="links_name">&nbsp; Rendez-vous</span>
+                        </a>
+                        <span class="tooltip">Rendez-vous</span>
+                    </li>
+                    <li>
+                        <a href="/employe/suividetache">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <span class="links_name">&nbsp; Suivi des tâches</span>
+                        </a>
+                        <span class="tooltip">Suivi des tâches</span>
+                    </li>
+                </div>
+                <div *ngIf="this.user.typeUser == 'Manager'">
+                    <!-- <li><a href="/manager/profile"><i class="bi bi-person-circle"></i> Profile</a></li> -->
+                    <li>
+                        <a href="/manager/statistiques">
+                            <i class="bi bi-bar-chart-fill"></i>
+                            <span class="links_name">&nbsp; Statistiques</span>
+                        </a>
+                        <span class="tooltip">Statistiques</span>
+                    </li>
+                    <li>
+                        <a href="/manager/gestionemploye">
+                            <i class="bi bi-person-fill"></i>
+                            <span class="links_name">&nbsp; Employés</span>
+                        </a>
+                        <span class="tooltip">Employés</span>
+                    </li>
+                    <li>
+                        <a href="/manager/gestionservices">
+                            <i class="bi bi-people-fill"></i>
+                            <span class="links_name">&nbsp; Services</span>
+                        </a>
+                        <span class="tooltip">Services</span>
+                    </li>
+                    <li>
+                        <a href="/manager/gestiondepenses">
+                            <i class="bi bi-wallet-fill"></i>
+                            <span class="links_name">&nbsp; Dépenses</span>
+                        </a>
+                        <span class="tooltip">Dépenses</span>
+                    </li>
+                </div>
+                <li>
+                    <a class="text-white" role="button" (click)="logOut()">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span class="links_name">&nbsp; Se déconnecter</span>
+                    </a>
+                    <span class="tooltip">Se deconnecter</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

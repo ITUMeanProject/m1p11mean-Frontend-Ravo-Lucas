@@ -11,8 +11,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginEmployeComponent implements OnInit {
     submitted: boolean = false;
-    errorMessage: string = '';1
+    errorMessage: string = '';
     loginForm: FormGroup;
+    loginBtn: String = "Se connecter";
+    loginIn: boolean;
 
     constructor(
         private fb: FormBuilder, 
@@ -42,18 +44,21 @@ export class LoginEmployeComponent implements OnInit {
     }
 
     connect() {
-        console.log(this.loginForm.value);
+        this.loginBtn = "";
+        this.loginIn = true;
         this.employeService.login(this.loginForm.value)
         .subscribe({
             next: (response) => {
                 var res = JSON.parse(JSON.stringify(response));
-                console.log(res);
                 this.userService.setUserToken(res.token.value, res.token.expires);
+                this.loginIn = false;
+                this.loginBtn = "Se connecter";
                 this.router.navigate(['employe/rendezvous']);
             },
             error: (error) => {
                 this.errorMessage = error.error.message;
-                console.log(error);
+                this.loginIn = false;
+                this.loginBtn = "Se connecter";
             }
         });
     }

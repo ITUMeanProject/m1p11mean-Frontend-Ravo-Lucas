@@ -3,7 +3,7 @@
 
     <div class="bg-light flex-fill p-5">
         <div class="d-flex justify-content-start align-items-stretch bg-white p-4" *ngIf="this.employe">
-            <img src="http://127.0.0.1:3000/static/uploads/employes/{{ this.employe.photoDeProfil }}" class="align-self-start mr-3" alt="" style="height: 125px; width: 125px;">
+            <img src="{{ baseUrl }}static/uploads/employes/{{ this.employe.photoDeProfil }}" class="align-self-start mr-3" alt="" style="height: 125px; width: 125px;">
             <div class="px-4">
                 <p class="fw-bold">
                     <span style="font-size: 45px;">

@@ -13,9 +13,8 @@ export class InscriptionComponent implements OnInit {
     submitted: boolean = false;
     inscriptionForm: FormGroup;
     erreurPwd : boolean = false;
-    router: Router;
     constructor(
-        private fb: FormBuilder, private clientService : ClientService
+        private fb: FormBuilder, private clientService : ClientService, private router : Router
     ) {
         this.mainForm();
     }
@@ -78,7 +77,7 @@ export class InscriptionComponent implements OnInit {
             this.clientService.createClient(formData)
             .subscribe(
                 response =>  {
-                    this.router.navigate(['login']);
+                    this.router.navigate(['client/login']);
                 },
                 error => {
                     console.log(error);

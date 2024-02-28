@@ -5,23 +5,19 @@
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
     
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Accueil</a>
+                        <a class="nav-link" href="">Accueil</a>
                     </li>
-                
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Service</a>
+
+                    <li>
+                        <a class="nav-link"  [routerLink]="['/client/prise-rende-vous']">Prendre un rendez-vous</a>
                     </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tarifs</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+
+                    <li>
+                        <a class="nav-link"  [routerLink]="['/client/historique']">Mes rendez-vous</a>
                     </li>
                 </ul>
 
-                <div class="d-flex" id="navbar-right">
+                <div class="d-flex" id="navbar-right" *ngIf="tokenExpire === true">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         
                         <li class="nav-item">
@@ -33,6 +29,21 @@
                         </li>
                     </ul>
                 </div>
+
+
+                <div class="d-flex" id="navbar-right" *ngIf="tokenExpire === false">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        
+                        <li class="nav-item">
+                            <span class="nav-link active">{{this.user.user.nom}} {{this.user.user.prenom}}</span>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link" (click)="Deconnect()">Deconnecter</a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </nav>

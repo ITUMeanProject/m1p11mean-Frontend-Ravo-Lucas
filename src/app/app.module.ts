@@ -26,6 +26,7 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { ImageService } from './services/images/image.service';
 import { HeaderComponent } from './client/header/header.component';
 import { FooterComponent } from './client/footer/footer.component';
+import { HistoriqueComponent } from './client/historique/historique.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { FooterComponent } from './client/footer/footer.component';
         ManagerGestionServiceComponent,
         AccueilComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        HistoriqueComponent
     ],
     imports: [
         BrowserModule,

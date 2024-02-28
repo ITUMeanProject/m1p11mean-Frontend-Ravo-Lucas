@@ -30,4 +30,17 @@ export class ClientService {
     login(formData: any) {
         return this.http.post(`${Envs.API_BASEURL}login/client`, formData);
     }
+
+    clearAllCookies(): void {
+        const cookies = document.cookie.split(';');
+        for (const cookie of cookies) {
+          const parts = cookie.split('=');
+          const name = parts[0].trim();
+          this.deleteCookie(name);
+        }
+    }
+
+    deleteCookie(name: string): void {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
 }

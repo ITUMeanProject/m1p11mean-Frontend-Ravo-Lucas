@@ -16,6 +16,7 @@ import { ManagerAuthGuard } from './guard/manager-auth.guard';
 import { ManagerGestionEmployeComponent } from './manager/manager-gestion-employe/manager-gestion-employe.component';
 import { ManagerGestionServiceComponent } from './manager/manager-gestion-service/manager-gestion-service.component';
 import { AccueilComponent } from './accueil/accueil.component';
+import { HistoriqueComponent } from './client/historique/historique.component';
 
 const routes : Routes = [
     {path : '', component:AccueilComponent},
@@ -25,6 +26,8 @@ const routes : Routes = [
         children : [
             {path : 'login',  component:LoginComponent},
             {path : 'inscription', component:InscriptionComponent},
+            {path : 'historique', component:HistoriqueComponent},
+            {path : 'prise-rende-vous', component:HomeComponent},
         ]
     },
     {

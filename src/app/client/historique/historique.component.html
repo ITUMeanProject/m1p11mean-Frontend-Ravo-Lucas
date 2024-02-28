@@ -1,0 +1,109 @@
+<app-header></app-header>
+<div class="container">
+    <div class="vh-100 d-flex justify-content-start align-items-stretch">
+        <div class="flex-fill p-5">
+            <div class="bg-white border border-light">
+                <h2 class="text-center">Mes rendez-vous</h2>
+                <div class="row  m-2">
+                    <div *ngFor="let rendezVous of rendezVousList" class="col-sm-6">
+                        <div class="mt-5 mb-4">
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    Rendez-vous du {{rendezVous.date | date:'dd-MM-yyyy'}}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{rendezVous.services[0].nom}}</h5>
+                                    <p class="card-text">Heure : <span>{{rendezVous.date | date:'HH:mm:ss'}}</span></p>
+                                    <p class="card-text">Prix : <span>{{rendezVous.services[0].prix}} €</span></p>
+                                    <p class="card-text">Prix : <span>{{rendezVous.services[0].duree}} h</span></p>
+                                    <p class="card-text">Responsable : <span>{{rendezVous.employe.nom}}
+                                            {{rendezVous.employe.prenom}}</span></p>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    <button class="btn btn-warning me-2" *ngIf="!isDatePassed(rendezVous.date) && rendezVous.dejaPaye === false"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        (click)="effectuerPaiement(rendezVous)">Effectuer un paiement</button>
+                                    <span class="btn btn-success me-2" *ngIf="rendezVous.dejaPaye === true">Déjà payé</span>
+
+                                    <button class="btn btn-danger" *ngIf="!isDatePassed(rendezVous.date) && rendezVous.dejaPaye === false"
+                                        (click)="annulerRendezVous(rendezVous._id)">Annuler</button>
+                                    <span *ngIf="isDatePassed(rendezVous.date)">Terminé</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Effectuer un paiement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Veuillez remplir les informations ci-dessous
+                                    </div>
+                                    <div class="card-body">
+                                        <form [formGroup]="paiementForm" (ngSubmit)="payer()">
+                                            <div class="mb-3">
+                                                <label for="cardNumber" class="form-label">Numéro de carte</label>
+                                                <input type="text" class="form-control" id="cardNumber"
+                                                    placeholder="Veuillez entrer ici votre numéro de votre carte"
+                                                    formControlName="cardNumber">
+
+                                                <div class="error-message" *ngIf="submitted && getForm['cardNumber'].errors?.['required']">
+                                                    Veuillez ajouter le numéro de votre carte
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="expirationDate" class="form-label">Date d'expiration</label>
+                                                <input type="Date" class="form-control" id="expirationDate"
+                                                    placeholder="MM/AA" formControlName="expirationDate">
+
+                                                <div class="error-message" *ngIf="submitted && getForm['expirationDate'].errors?.['required']">
+                                                    Veuillez ajouter la date d'expiration de votre carte
+                                                </div>
+                                            </div> 
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <label for="cvv" class="form-label">CVV</label>
+                                                    <input type="text" class="form-control" id="cvv"
+                                                        placeholder="Exemple 123" formControlName="cvv">
+                                                    <div class="error-message" *ngIf="submitted && getForm['cvv'].errors?.['required']">
+                                                        Veuillez ajouter le cvv
+                                                    </div>
+                                                </div> 
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="cardHolderName" class="form-label">Nom du titulaire de la
+                                                    carte</label>
+                                                <input type="text" class="form-control" id="cardHolderName"
+                                                    placeholder="Saisissez votre nom ici" formControlName="cardHolderName">
+                                                 <div class="error-message" *ngIf="submitted && getForm['cardHolderName'].errors?.['required']">
+                                                    Veuillez ajouter le nom du propriétaire
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Payer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

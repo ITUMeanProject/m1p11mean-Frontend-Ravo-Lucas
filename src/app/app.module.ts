@@ -29,7 +29,7 @@ import { FooterComponent } from './client/footer/footer.component';
 import { StatistiqueComponent } from './manager/statistique/statistique.component';
 import { ChartsModule } from 'ng2-charts';
 import { ManagerGestionDepenseComponent } from './manager/manager-gestion-depense/manager-gestion-depense.component';
-
+import { HistoriqueComponent } from './client/historique/historique.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +52,8 @@ import { ManagerGestionDepenseComponent } from './manager/manager-gestion-depens
         HeaderComponent,
         FooterComponent,
         StatistiqueComponent,
-        ManagerGestionDepenseComponent
+        ManagerGestionDepenseComponent,
+        HistoriqueComponent
     ],
     imports: [
         BrowserModule,

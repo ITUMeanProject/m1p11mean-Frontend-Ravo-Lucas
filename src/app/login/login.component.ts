@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientService } from '../services/client/client.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
         private fb: FormBuilder,
         private ngZone: NgZone,
         private router: Router,
-        private clientService : ClientService
+        private clientService : ClientService,
+        private cookieService : CookieService
     ) {
         this.mainForm();
     }
@@ -53,7 +55,9 @@ export class LoginComponent implements OnInit {
                 next: (response) => {
                     var res = JSON.parse(JSON.stringify(response));
                     this.clientService.setUserToken(res.token.value, res.token.expires);
-                    this.router.navigate(['home']);
+
+                    var pathRedirection = this.cookieService.get('path') ? this.cookieService.get('path') : '/';
+                    this.router.navigate([pathRedirection]);
                 },
                 error: (error) => {
                     this.errorMessage = error.error.message ?  error.error.message : "Login ou mot de passe incorrect" ;

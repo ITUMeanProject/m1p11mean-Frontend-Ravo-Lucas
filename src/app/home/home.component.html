@@ -10,7 +10,7 @@
                         <label class="form-label col-sm-1" for="form3Example1cg"><strong>Nom</strong></label>
                         <div class="col-sm-10">
                             <input type="text" id="form3Example1cg" class="form-control col-sm-10"
-                                value="{{this.user.user.nom}}" readonly />
+                                value="{{this.user?.user?.nom}}" readonly />
                         </div>
                     </div>
 
@@ -18,7 +18,7 @@
                         <label class="form-label col-sm-1" for="form3Example1cg"><strong>Prenom</strong></label>
                         <div class="col-sm-10">
                             <input type="text" id="form3Example1cg" class="form-control col-sm-10"
-                                value="{{this.user.user.prenom}}" readonly />
+                                value="{{this.user?.user?.prenom}}" readonly />
                         </div>
                     </div>
 
@@ -36,7 +36,7 @@
                             <div class="offset-sm-1 col-sm-11">
                                 <div class="list-group">
                                     <div class="list-group-item list-group-item-action"
-                                        [ngClass]="{'p-3 mb-2 bg-warning text-dark': selectedService == service}"
+                                        [ngClass]="{'bg-warning text-dark': selectedService == service}"
                                         *ngFor="let service of serviceList" (click)="checkService(service)">
                                         <div class="col-sm-10">
                                             {{ service.nom }}

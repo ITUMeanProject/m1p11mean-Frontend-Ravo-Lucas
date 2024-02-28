@@ -72,7 +72,7 @@ body {
 
 #service-description {
     text-align: center;
-    color: #6a6363;
+    color: #ff0777;
     font-size: 30px;
     padding: 20px;
     z-index: 9;
@@ -190,4 +190,8 @@ body {
 
   #navbar-left {
     width: 80%;
+  }
+
+  .card-footer {
+    height: 47px !important;
   }

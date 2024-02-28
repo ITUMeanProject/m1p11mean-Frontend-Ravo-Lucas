@@ -43,4 +43,13 @@ export class RendezVousService{
     createRdv(formData: any) {
         return this.http.post(`${Envs.API_BASEURL}rendezvousAPI/rendezvous`, formData);
     }
+
+    fetchRdvByUserId(userId?: string){
+        var url =  `${Envs.API_BASEURL}rendezvousAPI/rendezVousByUserId/${userId}`
+        return this.http.get(url);
+    }
+
+    deleteRdv(id: string){
+        return this.http.delete(`${Envs.API_BASEURL}rendezvousAPI/rendezvous/${id}`);
+    }
 }

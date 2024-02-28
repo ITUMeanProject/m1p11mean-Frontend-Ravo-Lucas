@@ -18,6 +18,7 @@ import { ManagerGestionServiceComponent } from './manager/manager-gestion-servic
 import { AccueilComponent } from './accueil/accueil.component';
 import { StatistiqueComponent } from './manager/statistique/statistique.component';
 import { ManagerGestionDepenseComponent } from './manager/manager-gestion-depense/manager-gestion-depense.component';
+import { HistoriqueComponent } from './client/historique/historique.component';
 
 const routes : Routes = [
     {path : '', component:AccueilComponent},
@@ -27,6 +28,8 @@ const routes : Routes = [
         children : [
             {path : 'login',  component:LoginComponent},
             {path : 'inscription', component:InscriptionComponent},
+            {path : 'historique', component:HistoriqueComponent},
+            {path : 'prise-rende-vous', component:HomeComponent},
         ]
     },
     {

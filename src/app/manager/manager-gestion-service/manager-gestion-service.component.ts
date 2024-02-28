@@ -9,6 +9,7 @@ import { ServiceService } from 'src/app/services/service/service.service';
 })
 export class ManagerGestionServiceComponent implements OnInit {
 
+    fetching = false;
     serviceSearch = {
         nom: '',
         duree: '',
@@ -101,6 +102,7 @@ export class ManagerGestionServiceComponent implements OnInit {
     }
 
     findService( page = 1){
+        this.fetching = true;
         this.serviceSearch.page = page;
         this.serviceService.findService(this.serviceSearch)
         .subscribe({
@@ -109,9 +111,11 @@ export class ManagerGestionServiceComponent implements OnInit {
                 this.services = data.data;
                 this.totalPage = data.totalPage;
                 console.log(data);
+                this.fetching = false;
             },
             error: (error) => {
                 console.log(error)
+                this.fetching = false;
             }
         });
     }

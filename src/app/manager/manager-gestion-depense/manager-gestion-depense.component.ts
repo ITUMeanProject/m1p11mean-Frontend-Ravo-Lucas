@@ -9,6 +9,7 @@ import { DepenseService } from 'src/app/services/depense/depense.service';
 })
 export class ManagerGestionDepenseComponent implements OnInit {
 
+    fetching = false;
     depenseSearch = {
         type: '',
         date: '',
@@ -73,7 +74,7 @@ export class ManagerGestionDepenseComponent implements OnInit {
     }
 
     findDepense( page = 1 ){
-
+        this.fetching = true;
         this.depenseSearch.page = page ;
         this.depenseService.findDepense(this.depenseSearch)
         .subscribe({
@@ -81,9 +82,11 @@ export class ManagerGestionDepenseComponent implements OnInit {
                 var data = JSON.parse(JSON.stringify(response));
                 this.depenses = data.data;
                 this.totalPage = data.totalPage;
+                this.fetching = false;
             },
             error: (error) => {
                 console.log(error)
+                this.fetching = false;
             }
         });
     }

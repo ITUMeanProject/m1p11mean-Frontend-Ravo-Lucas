@@ -12,7 +12,7 @@ export class DepenseService {
     findDepense(filter){
         
         var url = `${Envs.API_BASEURL}managerAPI/findDepense?`;
-        if(filter.type != '' && filter.type != undefined) url += `&type=${filter.type}`;
+        if(filter.type != '' && filter.type != undefined) url += `&type=${filter.type.replace(" ", "%20")}`;
         if(filter.desc != '' && filter.desc != undefined) url += `&desc=${filter.desc}`;
         if(filter.date != '' && filter.date != undefined) url += `&date=${filter.date}`;
         if(filter.page != '' && filter.page != undefined) url += `&page=${filter.page}`;

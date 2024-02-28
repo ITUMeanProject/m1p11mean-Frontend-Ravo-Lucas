@@ -44,6 +44,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr *ngIf="fetching">
+                                <td colspan="4">
+                                    <div class="d-flex justify-content-center w-100" >
+                                        <div class="spinner-border" role="status">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr *ngFor="let depense of depenses">
                                 <td>
                                     {{depense.type}}

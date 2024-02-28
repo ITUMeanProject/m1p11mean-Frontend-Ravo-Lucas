@@ -20,6 +20,16 @@
                 <div class="d-flex" id="navbar-right" *ngIf="tokenExpire === true">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Connexion Personnel
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/employe/login">Se connecter en tant qu'employé</a></li>
+                                <li><a class="dropdown-item" href="/manager/login">Se connecter en tant que manager</a></li>
+                            </ul>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link active" [routerLink]="['/client/inscription']">S'inscrire</a>
                         </li>
@@ -33,7 +43,16 @@
 
                 <div class="d-flex" id="navbar-right" *ngIf="tokenExpire === false">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Connexion Personnel
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/employe/login">Se connecter en tant qu'employé</a></li>
+                                <li><a class="dropdown-item" href="/manager/login">Se connecter en tant que manager</a></li>
+                            </ul>
+                        </li>
+                        
                         <li class="nav-item">
                             <span class="nav-link active">{{this.user.user.nom}} {{this.user.user.prenom}}</span>
                         </li>

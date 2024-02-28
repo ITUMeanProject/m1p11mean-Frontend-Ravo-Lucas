@@ -1,17 +1,20 @@
 <div class="vh-100 d-flex justify-content-start align-items-stretch">
     <app-navbar></app-navbar>
 
-    <div class="bg-light flex-fill p-5">
+    <div class="bg-light flex-fill overflow-scroll">
+        <div class="px-2 pt-4">
+            <h1>Liste de rendez-vous</h1>
+        </div>
         <div class="bg-white border border-light">
             <div class="tab-content" id="nav-tabContent">
                 <div class="" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
                     <div class="py-2">
                         <form class="px-2" (ngSubmit)="clickFindRdv()">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-6 mb-1">
                                     <input class="col-2 form-control form-control-sm" [(ngModel)]="_date" name="_date" type="date" placeholder="Date" aria-label="Date">
                                 </div>
-                                <div class="col">
+                                <div class="col-6 mb-1">
                                     <input class="col-2 form-control btn-sm btn btn-primary" type="submit" value="Rechercher" aria-label="Rechercher">
                                 </div>
                             </div>

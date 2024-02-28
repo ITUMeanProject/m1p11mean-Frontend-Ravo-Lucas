@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 export class NavbarComponent implements OnInit {
 
     user: any;
+    openSidebar = "";
 
     constructor(
         private userService: UserService, 
@@ -24,5 +25,9 @@ export class NavbarComponent implements OnInit {
     logOut(){
         this.userService.logOut();
         this.router.navigate(['employe/login']);
+    }
+
+    togglenav(){
+        this.openSidebar = (this.openSidebar == "" ) ? "open" : "";
     }
 }

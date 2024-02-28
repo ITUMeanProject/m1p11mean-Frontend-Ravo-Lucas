@@ -29,7 +29,12 @@ import { FooterComponent } from './client/footer/footer.component';
 import { StatistiqueComponent } from './manager/statistique/statistique.component';
 import { ChartsModule } from 'ng2-charts';
 import { ManagerGestionDepenseComponent } from './manager/manager-gestion-depense/manager-gestion-depense.component';
+<<<<<<< HEAD
 import { HistoriqueComponent } from './client/historique/historique.component';
+=======
+import { FooterComponent } from './common/footer/footer.component';
+
+>>>>>>> 075240d1ba444e8fdf70fc1c813814dacdf80869
 
 @NgModule({
     declarations: [
@@ -53,7 +58,11 @@ import { HistoriqueComponent } from './client/historique/historique.component';
         FooterComponent,
         StatistiqueComponent,
         ManagerGestionDepenseComponent,
+<<<<<<< HEAD
         HistoriqueComponent
+=======
+        FooterComponent
+>>>>>>> 075240d1ba444e8fdf70fc1c813814dacdf80869
     ],
     imports: [
         BrowserModule,

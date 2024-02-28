@@ -13,7 +13,7 @@
                         <form (ngSubmit)="findService()">
                             <div class="row">
                                 <div class="col-6 mb-1">
-                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.nom" name="nom" type="text" placeholder="Nom client" aria-label="Nom client">
+                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.nom" name="nom" type="text" placeholder="Nom" aria-label="Nom client">
                                 </div>
                                 <div class="col-6 mb-1">
                                     <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.duree" name="duree" type="number" placeholder="Duree" aria-label="Date">
@@ -25,7 +25,7 @@
                                     <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.prixMin" name="prixMin" type="number" placeholder="Prix min" aria-label="Date">
                                 </div>
                                 <div class="col-6 mb-1">
-                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.prixMax" name="prixMax" type="number" placeholder="Prix min" aria-label="Date">
+                                    <input class="col-2 form-control form-control-sm" [(ngModel)]="serviceSearch.prixMax" name="prixMax" type="number" placeholder="Prix max" aria-label="Date">
                                 </div>
                                 <div class="col-6 mb-1">
                                     <input class="col-2 form-control btn-sm btn btn-primary" type="submit" value="Rechercher" aria-label="Rechercher">

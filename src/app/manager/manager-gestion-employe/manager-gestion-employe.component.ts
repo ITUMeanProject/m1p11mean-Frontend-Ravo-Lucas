@@ -9,6 +9,7 @@ import { EmployeService } from 'src/app/services/employe/employe.service';
 })
 export class ManagerGestionEmployeComponent implements OnInit {
 
+    fetching = false;
     empSearch = {
         nomEmp: '',
         prenomEmp: '',
@@ -121,6 +122,7 @@ export class ManagerGestionEmployeComponent implements OnInit {
     }
 
     findEmp( page = 1 ){
+        this.fetching = true;
         this.empSearch.page = page ;
         this.employeService.findEmp(this.empSearch)
         .subscribe({
@@ -128,9 +130,11 @@ export class ManagerGestionEmployeComponent implements OnInit {
                 var data = JSON.parse(JSON.stringify(response));
                 this.employes = data.data;
                 this.totalPage = data.totalPage;
+                this.fetching = false;
             },
             error: (error) => {
                 console.log(error)
+                this.fetching = false;
             }
         });
     }

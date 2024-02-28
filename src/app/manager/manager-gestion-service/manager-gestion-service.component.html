@@ -48,6 +48,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr *ngIf="fetching">
+                                <td colspan="5">
+                                    <div class="d-flex justify-content-center w-100" >
+                                        <div class="spinner-border" role="status">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr *ngFor="let service of services">
                                 <td>
                                     {{service.nom}}

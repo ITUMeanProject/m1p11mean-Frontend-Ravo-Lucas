@@ -46,7 +46,7 @@ export class HistoriqueComponent implements OnInit {
     }
 
     init() {
-        if (!this.cookieService.get('token')) {
+        if (!this.cookieService.get('connect')) {
             this.cookieService.set('path', this.path);
             this.router.navigate(['/client/login']);
         } else {
@@ -112,16 +112,11 @@ export class HistoriqueComponent implements OnInit {
     }
 
     payer() {
-        alert(1);
         this.submitted = true;
         if (!this.paiementForm.valid) {
-        alert(2);
 
             return false;
         } else {
-
-        alert(1);
-
             this.paimentService.createPaiement(this.paiementForm.value)
                 .subscribe({
                     next: (response) => {

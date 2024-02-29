@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
                 next: (response) => {
                     var res = JSON.parse(JSON.stringify(response));
                     this.clientService.setUserToken(res.token.value, res.token.expires);
-
+                    this.cookieService.set("connect", "1");
                     var pathRedirection = this.cookieService.get('path') ? this.cookieService.get('path') : '/';
                     this.router.navigate([pathRedirection]);
                 },

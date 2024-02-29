@@ -22,13 +22,14 @@ export class HeaderComponent implements OnInit {
         this.getToken();    }
 
     getToken() {
-        if (this.cookieService.get('token')) {
+        if (this.cookieService.get('connect')) {
             this.tokenExpire = false;
             this.user = this.userService.getUser();
         }
     }
 
     Deconnect() {
+        this.cookieService.delete("connect")
         this.userService.logOut();
         this.tokenExpire = true;
         this.router.navigate(['/']);

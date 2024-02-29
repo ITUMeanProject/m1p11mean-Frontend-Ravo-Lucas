@@ -42,13 +42,12 @@ export class HomeComponent implements OnInit {
     }
 
     init() {
-        if(!this.cookieService.get('token')) {
+        if(!this.cookieService.get('connect')) {
             this.cookieService.set('path', this.path);
             this.router.navigate(['/client/login']);
         } else {
-            this.getServiceList();
-            this.getEmployeDispo();
             this.checkInfo();
+            this.getServiceList();
         }
     }
     

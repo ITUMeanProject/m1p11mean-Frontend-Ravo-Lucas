@@ -33,7 +33,7 @@ export class EmployeService{
     }
 
     finEmplByHoraireDeTravail(_date: string, _time: string) {
-        var url = `${Envs.API_BASEURL}employeAPI/employeDispo?_date=${_date}&_date=${_time}`;
+        var url = `${Envs.API_BASEURL}employeAPI/employeDispo?_date=${_date}&_time=${_time}`;
         return this.http.get(url); 
     }
 

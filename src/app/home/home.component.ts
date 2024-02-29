@@ -5,6 +5,8 @@ import { UserService } from '../services/user.service';
 import { RendezVousService } from '../services/rendezvous/rendezVous.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
     selector: 'app-home',
@@ -15,15 +17,15 @@ export class HomeComponent implements OnInit {
 
     serviceList = [];
     selectedService: any;
-    errorMessage: string;
+    errorMessage: string  = "";
     employeDispo: any;
     employeDispoSelected : any;
     user: any = {};
-    dateRendezvous : string = '2024-02-19';
-    heureRendezvous : string = '08:00:00';
+    dateRendezvous : string;
+    heureRendezvous : string;
     rdvContact : any;
     path : string = 'client/prise-rende-vous';
-
+    currentDate : Date = new Date();
 
     constructor(
         private serviceService : ServiceService, 
@@ -58,7 +60,7 @@ export class HomeComponent implements OnInit {
                     this.serviceList = JSON.parse(JSON.stringify(response));
                 },
                 error: (error) => {
-                    this.errorMessage = error.error.message;
+                    //this.errorMessage = error.error.message;
                 }
             }
         )
@@ -73,7 +75,7 @@ export class HomeComponent implements OnInit {
                     console.log(this.employeDispo);
                 },
                 error: (error) => {
-                    this.errorMessage = error.error.message;
+                    //this.errorMessage = error.error.message;
                 }
             }
         )
@@ -86,6 +88,7 @@ export class HomeComponent implements OnInit {
 
     enregistrerRendezvous() {
         if(!this.dateRendezvous || !this.heureRendezvous || !this.employeDispoSelected) {
+            this.errorMessage = "Veuillez remplir les champs ou/et selectionner une liste";
             return false;
         } else {
             let rendezVousData = {
@@ -115,5 +118,10 @@ export class HomeComponent implements OnInit {
 
     checkService(service) {
         this.selectedService = service;
+    }
+
+    changeDateRdv() {
+        this.employeDispo = [];
+        this.getEmployeDispo();
     }
 }

@@ -21,6 +21,7 @@ export class HistoriqueComponent implements OnInit {
     rendezVousApayer: any;
     paiementForm: FormGroup;
     submitted: boolean = false;
+    IsmodelShow : boolean;
 
     constructor(
         private fb: FormBuilder,
@@ -114,10 +115,14 @@ export class HistoriqueComponent implements OnInit {
     payer() {
         this.submitted = true;
         if (!this.paiementForm.valid) {
-
+            
             return false;
         } else {
-            this.paimentService.createPaiement(this.paiementForm.value)
+            this.miseAjourRdv();
+            this.IsmodelShow = true;
+
+            /*
+            this.paimentService.createPaiement(this.paiementForm.controls)
                 .subscribe({
                     next: (response) => {
                         alert(response);
@@ -127,12 +132,11 @@ export class HistoriqueComponent implements OnInit {
                         this.errorMessage = error.error.message ? error.error.message : "Erreur sur le paiement";
                     }
                 })
+                */
         }
     }
 
     miseAjourRdv() {
-        alert(3);
-
         this.rendezVousApayer.dejaPaye = true;
         this.rendezvousService.updateRdv(this.rendezVousApayer._id, this.rendezVousApayer)
             .subscribe({
